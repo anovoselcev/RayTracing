@@ -1,1 +1,2 @@
-# QNT
+# RayTraycing
+## Course project
