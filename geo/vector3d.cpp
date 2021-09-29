@@ -9,6 +9,12 @@ namespace rytg{
             direction_.z = end.z - start.z;
         }
 
+        Vector3D::Vector3D(double x, double y, double z) noexcept{
+            direction_.x = x;
+            direction_.y = y;
+            direction_.z = z;
+        }
+
         double Vector3D::get(size_t index) const{
             switch(index) {
                 case 0: return direction_.x;

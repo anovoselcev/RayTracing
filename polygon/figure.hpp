@@ -1,6 +1,6 @@
 #pragma once
 
-#include "point.hpp"
+#include "../geo/point.hpp"
 
 namespace rytg {
 

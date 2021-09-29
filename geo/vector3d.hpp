@@ -14,6 +14,8 @@ namespace rytg{
 
         Vector3D(Point end, Point start = Point()) noexcept;
 
+        Vector3D(double x, double y, double z) noexcept;
+
         double get(size_t idx) const;
 
         double dot(const Vector3D& v) const noexcept;

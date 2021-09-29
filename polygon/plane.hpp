@@ -1,5 +1,5 @@
 #pragma once
-#include "vector3d.hpp"
+#include "../geo/vector3d.hpp"
 #include "triangle.hpp"
 
 namespace rytg{
