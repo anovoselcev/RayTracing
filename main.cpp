@@ -1,4 +1,4 @@
-#include "figures/triangle.hpp"
+#include "polygon/triangle.hpp"
 #include "scene/bsp_tree.hpp"
 #include <vector>
 #include <iostream>
