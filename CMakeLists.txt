@@ -7,7 +7,8 @@ enable_testing()
 include_directories(figures)
 include_directories(scene)
 
-file(GLOB FIGURES_SOURCES "figures/*.cpp")
+file(GLOB FIGURES_SOURCES "geo/*.cpp")
+file(GLOB FIGURES_SOURCES "polygon/*.cpp")
 file(GLOB SCENE_SOURCES "scene/*.cpp")
 
 add_executable(RayTraycing main.cpp ${FIGURES_SOURCES} ${SCENE_SOURCES} )
