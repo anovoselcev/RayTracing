@@ -1,6 +1,6 @@
 #include "bsp_tree.hpp"
-#include "../figures/triangle.hpp"
-#include "../figures/plane.hpp"
+#include "../polygon/triangle.hpp"
+#include "../polygon/plane.hpp"
 
 #include <vector>
 
@@ -15,7 +15,7 @@ namespace rytg{
             Node* curr = root_;
             Node* prev = nullptr;
             for(const auto& obj : c){
-                curr->obj = new Triangle(obj);
+                add(obj);
 
             }
         }
@@ -27,15 +27,14 @@ namespace rytg{
             }
             else{
                 Node* curr = root_;
+                Plane p(*(root_->obj));
+                while(curr != nullptr){
+                    if()
+                }
+
 
             }
 
-        }
-
-        void BSPtree::make_tree (const Triangle& t){
-            if(root_ == nullptr)
-        }
-
-        
+        }       
 
 }

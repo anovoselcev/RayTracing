@@ -25,10 +25,7 @@ namespace rytg{
         Node* root_ = nullptr;
 
         void generate(const std::vector<Triangle>& c);
-
-        void make_tree(const Triangle& t);
-
-        
+  
     };
 
 }
