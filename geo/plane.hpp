@@ -1,6 +1,8 @@
-#pragma once
-#include "../geo/vector3d.hpp"
-#include "../geo/line.hpp"
+#ifndef PLANE_HPP
+#define PLANE_HPP
+
+#include "vector3d.hpp"
+#include "line.hpp"
 #include "../polygon/triangle.hpp"
 
 namespace rytg{
@@ -34,3 +36,5 @@ namespace rytg{
 
     };
 }
+
+#endif
