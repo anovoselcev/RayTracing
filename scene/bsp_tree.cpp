@@ -1,6 +1,6 @@
 #include "bsp_tree.hpp"
 #include "../polygon/triangle.hpp"
-#include "../polygon/plane.hpp"
+#include "../geo/plane.hpp"
 
 #include <vector>
 
@@ -27,12 +27,20 @@ namespace rytg{
             }
             else{
                 Node* curr = root_;
-                Plane p(*(root_->obj));
                 while(curr != nullptr){
-                    if()
+                    Plane p(*(curr->obj));
+                    if(curr->obj->intersection(obj)){
+                        
+                    }
+                    else if(p.isAbove(obj)){
+                        curr = curr->rhs;
+                    }
+                    else{
+                        curr = curr->lhs;
+                    }
                 }
-
-
+                curr = new Node;
+                curr->obj = new Triangle(obj);
             }
 
         }       
