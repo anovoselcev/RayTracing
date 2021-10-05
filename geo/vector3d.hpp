@@ -16,6 +16,8 @@ namespace rytg{
 
         Vector3D(double x, double y, double z) noexcept;
 
+        bool isNull() const noexcept;
+
         double get(size_t idx) const;
 
         double dot(const Vector3D& v) const noexcept;

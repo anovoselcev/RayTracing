@@ -15,6 +15,10 @@ namespace rytg{
             direction_.z = z;
         }
 
+        bool Vector3D::isNull() const noexcept{
+            return direction_.x == 0 && direction_.y == 0 && direction_.z;
+        }
+
         double Vector3D::get(size_t index) const{
             switch(index) {
                 case 0: return direction_.x;
@@ -29,15 +33,15 @@ namespace rytg{
         }
 
         Vector3D Vector3D::cross(const Vector3D& v) const noexcept{
-            return Vector3D({get(1) * v.get(2) - get(2) * v.get(1), get(2) * v.get(0) - get(0) * v.get(2), get(0) * v.get(1) - get(1) * v.get(0)});
+            return Vector3D(get(1) * v.get(2) - get(2) * v.get(1), get(2) * v.get(0) - get(0) * v.get(2), get(0) * v.get(1) - get(1) * v.get(0));
         }
 
         Vector3D Vector3D::operator+(const Vector3D& v) const noexcept{
-            return Vector3D({get(0) + v.get(0), get(1) + v.get(1), get(2) + v.get(2)});
+            return Vector3D(get(0) + v.get(0), get(1) + v.get(1), get(2) + v.get(2));
         }
 
         Vector3D Vector3D::operator-(const Vector3D& v) const noexcept{
-            return Vector3D({get(0) - v.get(0), get(1) - v.get(1), get(2) - v.get(2)});
+            return Vector3D(get(0) - v.get(0), get(1) - v.get(1), get(2) - v.get(2));
         }
 
         Vector3D& Vector3D::operator+=(const Vector3D& v) noexcept{
