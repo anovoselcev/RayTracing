@@ -1,10 +1,10 @@
 #pragma once
 
-#include "figure.hpp"
+#include "../geo/point.hpp"
 
 namespace rytg{
 
-    class Triangle : public Figure{
+    class Triangle{
 
         Point p1_,
               p2_,
