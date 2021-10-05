@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace rytg{
 
@@ -7,6 +8,11 @@ namespace rytg{
         double x = 0.0,
                y = 0.0,
                z = 0.0;
+
+        double get(size_t idx) const noexcept;
+
+        std::string to_string() const noexcept;
+
     };
 
 }
