@@ -41,15 +41,38 @@ namespace rytg{
         return P0_;
     }
 
-    double Line::intersection(const Point& lhs, const Point& rhs, double s) const noexcept{
+    std::array<double, 2> Line::intersection(const Triangle& t, const Plane& p) const noexcept{
+        Section s1(t.getPoint(0), t.getPoint(1));
+        Section s2(t.getPoint(1), t.getPoint(2));
+        Section s3(t.getPoint(2), t.getPoint(0));
+        std::array<double, 2> res;
+        double inter[3] = {intersection(s1, s1.intersection(p)),
+                           intersection(s2, s2.intersection(p)),
+                           intersection(s3, s3.intersection(p))};
+        size_t not_nan = 0;
+        for(uint8_t i = 0, j = 0; i < 3; ++i){
+            if(inter[i] == inter[i]){
+                not_nan++;
+                res[j++] = inter[i];
+            }
+        }
+        if(not_nan != 2) return {NAN, NAN};
+
+        double start = std::min(res[0], res[1]);
+        double end   = std::max(res[0], res[1]);
+        return {start, end};  
+    }
+
+    double Line::intersection(const Section& sec, double s) const noexcept{
         std::map<double, bool> checker;
         for(uint8_t j = 0; j < 3; ++j){
             double tmp = NAN;
-            if(std::abs(L_.get(j)) > std::numeric_limits<double>::epsilon()){
-                tmp = (lhs.get(j) + s * (rhs.get(j) - lhs.get(j)) - P0_.get(j)) / L_.get(j);
+            double numer = sec.get(0).get(j) + s * (sec.get(1).get(j) - sec.get(0).get(j)) - P0_.get(j);
+            if(std::abs(L_.get(j)) > deps){
+                tmp = numer / L_.get(j);
                 checker[tmp] = true;
             }
-            else if(std::fabs(lhs.get(j) + s * (rhs.get(j) - lhs.get(j)) - P0_.get(j)) > std::numeric_limits<double>::epsilon()){
+            else if(std::fabs(numer) > deps){
                 return NAN;
             }
 

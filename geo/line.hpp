@@ -1,11 +1,12 @@
 #ifndef LINE_HPP
 #define LINE_HPP
 
+#include "../polygon/triangle.hpp"
 #include "vector3d.hpp"
+#include "section.hpp"
+#include "plane.hpp"
 
 namespace rytg{
-
-    class Plane;
 
     class Line{
         Point P0_;
@@ -19,7 +20,9 @@ namespace rytg{
 
         Point getConstant() const noexcept;
 
-        double intersection(const Point& lhs, const Point& rhs, double s) const noexcept;
+        double intersection(const Section& sec, double s) const noexcept;
+
+        std::array<double, 2> intersection(const Triangle& t, const Plane& oth) const noexcept;
 
     };
 
