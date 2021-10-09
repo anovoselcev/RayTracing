@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VECTOR3D_HPP
+#define VECTOR3D_HPP
 
 #include "point.hpp"
 
@@ -33,5 +34,6 @@ namespace rytg{
         Vector3D& operator-=(const Vector3D& v) noexcept;
 
     };
-
 }
+
+#endif
