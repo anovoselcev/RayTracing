@@ -1,6 +1,8 @@
-#pragma once
+#ifndef BSPTREE_HPP
+#define BSPTREE_HPP
 
 #include <vector>
+#include "../polygon/polygon.hpp"
 
 namespace rytg{
 
@@ -11,7 +13,7 @@ namespace rytg{
         public:
 
         struct Node{
-            Triangle* obj = nullptr;
+            Polygon* obj = nullptr;
             Node* lhs = nullptr;
             Node* rhs = nullptr;
         };
@@ -27,5 +29,6 @@ namespace rytg{
         void generate(const std::vector<Triangle>& c);
   
     };
-
 }
+
+#endif
