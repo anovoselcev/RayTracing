@@ -1,7 +1,10 @@
-#pragma once
-#include <string>
+#ifndef POINT_HPP
+#define POINT_HPP
+#include <limits>
 
 namespace rytg{
+
+    inline double deps = std::numeric_limits<double>::epsilon();
 
     struct Point{
 
@@ -11,8 +14,7 @@ namespace rytg{
 
         double get(size_t idx) const noexcept;
 
-        std::string to_string() const noexcept;
-
     };
-
 }
+
+#endif

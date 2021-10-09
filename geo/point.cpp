@@ -13,10 +13,4 @@ namespace rytg{
         };
     }
 
-    std::string Point::to_string() const noexcept{
-        std::stringstream ss;
-        ss << "(" << x << "," << y << "," << z << ")";
-        return ss.str();
-    }
-
 }
