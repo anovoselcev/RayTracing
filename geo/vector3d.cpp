@@ -16,7 +16,7 @@ namespace rytg{
         }
 
         bool Vector3D::isNull() const noexcept{
-            return direction_.x == 0 && direction_.y == 0 && direction_.z;
+            return direction_.x == 0 && direction_.y == 0 && direction_.z == 0;
         }
 
         double Vector3D::get(size_t index) const{
