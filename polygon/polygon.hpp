@@ -7,9 +7,11 @@ namespace rytg{
     
     class Polygon{
         public:
-        virtual bool isIntersection(const Polygon& p) const = 0;
+        virtual bool isIntersection(const Polygon* p) const = 0;
 
         virtual Plane getPlane() const = 0;
+
+        virtual ~Polygon();
     };
 
 }
