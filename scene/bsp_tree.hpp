@@ -9,7 +9,6 @@ namespace rytg{
     class Triangle;
 
     class BSPtree{
-
         public:
 
         struct Node{
@@ -20,13 +19,25 @@ namespace rytg{
 
         BSPtree(const std::vector<Triangle>& c);
 
-        void add(const Triangle& t);
+        ~BSPtree();
+
+        void add(Polygon* t);
 
         private:
 
         Node* root_ = nullptr;
 
+        size_t num_leafs = 0;
+
         void generate(const std::vector<Triangle>& c);
+
+        void addStandartNode(Node* leaf, Triangle* t);
+
+        void addChunkedNode(Node* leaf, Triangle* t);
+
+        void addInternal(Node* root, Triangle* p);
+
+        void delNode(Node* n);
   
     };
 }
