@@ -20,6 +20,8 @@ namespace rytg{
 
         Point getConstant() const noexcept;
 
+        Point getValue(double t) const noexcept;
+
         double intersection(const Section& sec, double s) const noexcept;
 
         std::array<double, 2> intersection(const Triangle& t, const Plane& oth) const noexcept;

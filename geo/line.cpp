@@ -41,6 +41,10 @@ namespace rytg{
         return P0_;
     }
 
+    Point Line::getValue(double t) const noexcept{
+        return {P0_.x + L_.get(0) * t, P0_.y + L_.get(1) * t, P0_.z + L_.get(2) * t};
+    }
+
     std::array<double, 2> Line::intersection(const Triangle& t, const Plane& p) const noexcept{
         Section s1(t.getPoint(0), t.getPoint(1));
         Section s2(t.getPoint(1), t.getPoint(2));
