@@ -12,6 +12,8 @@ namespace rytg{
                y = 0.0,
                z = 0.0;
 
+        bool operator==(const Point& p) const noexcept;
+
         double get(size_t idx) const noexcept;
 
     };

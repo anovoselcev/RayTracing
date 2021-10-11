@@ -13,4 +13,8 @@ namespace rytg{
         };
     }
 
+    bool Point::operator==(const Point& p) const noexcept{
+        return x == p.x && y == p.y && z == p.z;
+    }
+
 }
