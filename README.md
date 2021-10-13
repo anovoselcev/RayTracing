@@ -1,2 +1,2 @@
-# RayTraycing
+# RayTracing
 ## Course project
