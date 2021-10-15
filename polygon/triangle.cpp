@@ -4,7 +4,6 @@
 #include "../geo/line.hpp"
 
 #include <algorithm>
-#include <iostream>
 
 namespace rytg{
 
@@ -44,7 +43,7 @@ namespace rytg{
 
         auto t1 = L.intersection(*this, p2);
         auto t2 = L.intersection(*t, p1);
-        std::cout << t1.size() << "\n" << t2.size() << "\n";
+        
         if (t1.size() == 1 && t2.size() == 1)
             return t1[0] == t2[0];
 
