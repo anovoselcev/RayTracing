@@ -4,6 +4,7 @@
 #include "../geo/line.hpp"
 
 #include <algorithm>
+#include <iostream>
 
 namespace rytg{
 
@@ -43,7 +44,7 @@ namespace rytg{
 
         auto t1 = L.intersection(*this, p2);
         auto t2 = L.intersection(*t, p1);
-
+        std::cout << t1.size() << "\n" << t2.size() << "\n";
         if (t1.size() == 1 && t2.size() == 1)
             return t1[0] == t2[0];
 
@@ -54,8 +55,8 @@ namespace rytg{
             if(t2[0] >= t1[0] && t2[0] <= t1[1]) return true;
 
         if (t1.size() == 2 && t2.size() == 2){
-            if(t1[0] <= t2[0] && t1[1] > t2[0]) return true;
-            if(t2[0] <= t1[0] && t2[1] > t1[0]) return true;
+            if(t1[0] <= t2[0] && t1[1] >= t2[0]) return true;
+            if(t2[0] <= t1[0] && t2[1] >= t1[0]) return true;
         }
 
         return false;

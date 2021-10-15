@@ -63,8 +63,9 @@ namespace rytg{
         if(res.size() == 2){
             double start = std::min(res[0], res[1]);
             double end   = std::max(res[0], res[1]);
+            return {start, end}; 
         }
-        return {start, end};  
+        return res; 
     }
 
     double Line::intersection(const Section& sec, double s) const noexcept{
