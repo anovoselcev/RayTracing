@@ -6,6 +6,8 @@
 #include "section.hpp"
 #include "plane.hpp"
 
+#include <vector>
+
 namespace rytg{
 
     class Line{
@@ -24,7 +26,7 @@ namespace rytg{
 
         double intersection(const Section& sec, double s) const noexcept;
 
-        std::array<double, 2> intersection(const Triangle& t, const Plane& oth) const noexcept;
+        std::vector<double> intersection(const Triangle& t, const Plane& oth) const noexcept;
 
     };
 
