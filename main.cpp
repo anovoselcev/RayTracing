@@ -1,6 +1,7 @@
 
 #include "scene/bsp_tree.hpp"
 #include "tests/test_interception.hpp"
+#include "tests/test_vector.hpp"
 #include <vector>
 #include <iostream>
 
@@ -27,6 +28,8 @@ int main(){
     //auto v = parseTriangles();
     //rytg::BSPtree bsp(v);
    // int x;
+    test_rytg::test_vector();
     test_rytg::test_interception();
+
     return 0;
 }
