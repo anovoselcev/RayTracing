@@ -33,6 +33,7 @@ namespace rytg{
 
         Vector3D& operator-=(const Vector3D& v) noexcept;
 
+        bool operator==(const Vector3D& v) const noexcept;
     };
 }
 

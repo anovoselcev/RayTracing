@@ -58,4 +58,8 @@ namespace rytg{
             return *this;
         }
 
+        bool Vector3D::operator==(const Vector3D& v) const noexcept{
+            return direction_ == v.direction_;
+        }
+
 }
