@@ -15,7 +15,7 @@ namespace rytg{
         Vector3D edge1(t.getPoint(1), t.getPoint(0));
         Vector3D edge2(t.getPoint(2), t.getPoint(0));
         N_ = edge1.cross(edge2);
-        d_ = - N_.dot(edge1);
+        d_ = - N_.dot(t.getPoint(0));
     }
 
     bool Plane::operator==(const Plane& p) const noexcept{

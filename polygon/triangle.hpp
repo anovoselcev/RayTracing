@@ -32,6 +32,8 @@ namespace rytg{
 
         static Triangle* mergeChunks(const Polygon* lhs, const Polygon* rhs);
 
+        static bool isTriangle(const Polygon* p);
+
     };
 }
 

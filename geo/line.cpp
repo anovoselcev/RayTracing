@@ -12,23 +12,23 @@ namespace rytg{
         double x, y, z;
         Vector3D lhs_N = lhs.getNormal();
         Vector3D rhs_N = rhs.getNormal();
-        if (L_.get(0) != 0){
+        if (std::fabs(L_.get(0)) > deps){
             x = 0;
             double det = lhs_N.get(1) * rhs_N.get(2) - lhs_N.get(2) * rhs_N.get(1);
             y = (rhs.getConstant() * lhs_N.get(2) - rhs_N.get(2) * lhs.getConstant()) / det;
-            z = (lhs.getConstant() * rhs_N.get(1) - rhs_N.get(1) * lhs.getConstant()) / det;
+            z = (lhs.getConstant() * rhs_N.get(1) - lhs_N.get(1) * rhs.getConstant()) / det;
         }
-        else if(L_.get(1) != 0){
+        else if(std::fabs(L_.get(1)) > deps){
             y = 0;
             double det = lhs_N.get(0) * rhs_N.get(2) - lhs_N.get(2) * rhs_N.get(0);
             x = (rhs.getConstant() * lhs_N.get(2) - rhs_N.get(2) * lhs.getConstant()) / det;
-            z = (lhs.getConstant() * rhs_N.get(0) - rhs_N.get(0) * lhs.getConstant()) / det;
+            z = (lhs.getConstant() * rhs_N.get(0) - lhs_N.get(0) * rhs.getConstant()) / det;
         }
         else{
             z = 0;
             double det = lhs_N.get(0) * rhs_N.get(1) - lhs_N.get(1) * rhs_N.get(0);
             x = (rhs.getConstant() * lhs_N.get(1) - rhs_N.get(1) * lhs.getConstant()) / det;
-            z = (lhs.getConstant() * rhs_N.get(0) - rhs_N.get(0) * lhs.getConstant()) / det;
+            y = (lhs.getConstant() * rhs_N.get(0) - lhs_N.get(0) * rhs.getConstant()) / det;
         }
         P0_ = {x, y, z};
     }
@@ -80,7 +80,6 @@ namespace rytg{
             else if(std::fabs(numer) > deps){
                 return NAN;
             }
-
         }
         if(checker.size() == 1)
             return checker.begin()->first;

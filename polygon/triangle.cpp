@@ -86,12 +86,16 @@ namespace rytg{
     Triangle* Triangle::mergeChunks(const Polygon* lhs, const Polygon* rhs){
         if(ChunkTriangle::isChunks(lhs, rhs)){
 
-            Triangle* par = dynamic_cast<const ChunkTriangle*>(lhs)->getParent();
+            Triangle* par = new Triangle(*dynamic_cast<const ChunkTriangle*>(lhs)->getParent());
             delete lhs;
             delete rhs;
             return par;
         }
         return nullptr;
+    }
+
+    bool Triangle::isTriangle(const Polygon* p){
+        return dynamic_cast<const Triangle*>(p) != nullptr;
     }
 
 }

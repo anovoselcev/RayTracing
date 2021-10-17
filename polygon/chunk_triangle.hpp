@@ -25,8 +25,17 @@ namespace rytg{
 
         Triangle* getParent() const noexcept;
 
+        Point getPoint(size_t idx) const;
+
+        size_t getNumPoints() const noexcept;
+
+        std::shared_ptr<Triangle> getSharedParent() const noexcept;
+
         static bool isChunks(const Polygon* lhs, const Polygon* rhs);
 
+        static bool isChunck(const Polygon* p);
+
+        static std::array<Polygon*, 2> splitChunk(const ChunkTriangle* ct, const Plane& p);
     };
 }
 
