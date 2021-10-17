@@ -16,7 +16,7 @@ namespace rytg{
 
       double intersection(const Plane& p) const noexcept;
 
-      Point get(size_t idx) const noexcept;
+      Point get(std::size_t idx) const noexcept;
         
     };
 }

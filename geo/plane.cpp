@@ -63,6 +63,7 @@ namespace rytg{
     }
 
     bool Plane::isBelow(Point p) const noexcept{
+        // Не особо понял, что именно происходит
         double value = N_.dot(Vector3D(p)) + d_;
         if(value < 0) return true;
         return false;

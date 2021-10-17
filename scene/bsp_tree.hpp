@@ -16,9 +16,9 @@ namespace rytg{
             Node* lhs = nullptr;
             Node* rhs = nullptr;
         };
-
+        // Это вроде конструктор
         BSPtree(const std::vector<Triangle>& c);
-
+        // Это диструктор 
         ~BSPtree();
 
         void add(Polygon* t);

@@ -19,10 +19,11 @@ namespace rytg{
 
         bool isNull() const noexcept;
 
-        double get(size_t idx) const;
+        double get(std::size_t idx) const;
 
+        // Скалярное произведение
         double dot(const Vector3D& v) const noexcept;
-
+        // Векторное произведение
         Vector3D cross(const Vector3D& v) const noexcept;
 
         Vector3D operator+(const Vector3D& v) const noexcept;

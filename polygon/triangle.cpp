@@ -2,6 +2,7 @@
 #include "chunk_triangle.hpp"
 #include "../geo/plane.hpp"
 #include "../geo/line.hpp"
+#include <iostream>
 
 #include <algorithm>
 
@@ -30,14 +31,117 @@ namespace rytg{
         return false;
     }
 
+    /**
+     * \note Функция для проверки расположения точки, относительно вектора-отрезка. 
+     *       Метод основан на псевдоскалярном произведении. В объеме аналогом
+     *       псевдоскалярного произведения будем считать векторное произведение.
+     * 
+     *      https://habr.com/ru/post/148325/
+    */
+    inline double Triangle::Det2D(Point &p1, Point &p2, Point &p3){
+        Vector3D vector1(p2, p1);
+        Vector3D vector2(p3, p1);
+        Vector3D crossVector = vector1.cross(vector2);
+
+       //std::cout << "destination x = " << crossVector.get(0)  << std::endl;
+       //std::cout << "destination y = " << crossVector.get(1)  << std::endl;
+       //std::cout << "destination z = " << crossVector.get(2)  << std::endl;
+       //Triangle trig(p1, p2, p3);
+       //Plane refPlane(trig);
+
+        return crossVector.get(0) +  crossVector.get(1) + crossVector.get(2);
+       
+    }
+
+    void Triangle::CheckTriWinding(Point &p1, Point &p2, Point &p3){
+        double detTri = Det2D(p1, p2, p3);
+        if(detTri < 0.0)
+        {
+                Point a = p3;
+                p3 = p2;
+                p2 = a;
+        };
+    }
+
+    bool Triangle::BoundaryCollideChk(Point &p1, Point &p2, Point &p3, double eps){
+        return Det2D(p1, p2, p3) < eps;
+    }
+
+    bool Triangle::BoundaryDoesntCollideChk(Point &p1, Point &p2, Point &p3, double eps){
+        return Det2D(p1, p2, p3) <= eps;;
+    }
+
+    bool Triangle::TriTri2D(const Triangle* t1, const Triangle* t2, double eps, bool onBoundary){
+        // Подумать, как избежать этого копирования
+        Point p1t1 = t1->getPoint(0);
+        Point p2t1 = t1->getPoint(1);
+        Point p3t1 = t1->getPoint(2);
+
+        Point p1t2 = t2->getPoint(0);
+        Point p2t2 = t2->getPoint(1);
+        Point p3t2 = t2->getPoint(2);
+
+        //Trangles must be expressed anti-clockwise
+	    CheckTriWinding(p1t1, p2t1, p3t1);
+	    CheckTriWinding(p1t2, p2t2, p3t2);
+
+        Triangle trig1(p1t1, p2t1, p3t1);
+        Triangle trig2(p1t2, p2t2, p3t2);
+        /*
+        bool (Triangle::* chkEdge)(Point &, Point &, Point &, double) = nullptr;
+        if(onBoundary) //Points on the boundary are considered as colliding
+            chkEdge = BoundaryCollideChk;
+        else //Points on the boundary are not considered as colliding
+            chkEdge = BoundaryDoesntCollideChk;
+        */
+        //For edge E of trangle 1,
+        for(int i=0; i<3; i++)
+        {
+            int j=(i+1)%3;
+
+            Point pit1 = trig1.getPoint(i);
+            Point pjt1 = trig1.getPoint(j);
+
+            //Check all points of trangle 2 lay on the external side of the edge E. If
+            //they do, the triangles do not collide.
+            if (BoundaryCollideChk(pit1, pjt1, p1t2, eps) &&
+                BoundaryCollideChk(pit1, pjt1, p2t2, eps) &&
+                BoundaryCollideChk(pit1, pjt1, p3t2, eps))
+                return false;
+        }
+    
+        //For edge E of trangle 2,
+        for(int i=0; i<3; i++)
+        {
+            int j=(i+1)%3;
+
+            Point pit2 = trig2.getPoint(i);
+            Point pjt2 = trig2.getPoint(j);
+    
+            //Check all points of trangle 1 lay on the external side of the edge E. If
+            //they do, the triangles do not collide.
+            if (BoundaryCollideChk(pit2, pjt2, p1t1, eps) &&
+                BoundaryCollideChk(pit2, pjt2, p2t1, eps) &&
+                BoundaryCollideChk(pit2, pjt2, p3t1, eps))
+                return false;
+        }
+    
+        //The triangles collide
+        return true;
+    }
+
     bool Triangle::isIntersection(const Triangle* t) const noexcept{
         Plane p1(*this);
         Plane p2(*t);
+        Triangle trig(*this);
 
         if(!p2.isIntersection(*this)) return false;
         
         if(p2.isOnPlane(*this)){
+
             //std::cout << "On plane\n";
+            return trig.TriTri2D( this, t, 0.0);
+        
         }
         Line L = p1.intersection(p2);
 

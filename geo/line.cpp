@@ -54,7 +54,7 @@ namespace rytg{
                            intersection(s2, s2.intersection(p)),
                            intersection(s3, s3.intersection(p))};
         size_t not_nan = 0;
-        for(uint8_t i = 0, j = 0; i < 3; ++i){
+        for(wint_t i = 0, j = 0; i < 3; ++i){
             if(inter[i] == inter[i]){
                 not_nan++;
                 res[j++] = inter[i];
@@ -69,7 +69,7 @@ namespace rytg{
 
     double Line::intersection(const Section& sec, double s) const noexcept{
         std::map<double, bool> checker;
-        for(uint8_t j = 0; j < 3; ++j){
+        for(wint_t j = 0; j < 3; ++j){
             double tmp = NAN;
             double numer = sec.get(0).get(j) + s * (sec.get(1).get(j) - sec.get(0).get(j)) - P0_.get(j);
             if(std::abs(L_.get(j)) > deps){

@@ -33,6 +33,15 @@ std::string printTriangle(const Polygon* p){
 }
 
         BSPtree::BSPtree(const std::vector<Triangle>& c){
+            double result;
+
+            std::cout << "1" << std::endl;
+            /*
+            Triangle trig = c[0];
+            Point p1 = trig.getPoint(0);
+            Point p2 = trig.getPoint(1);
+            Point p3 = trig.getPoint(2);
+            */
             generate(c);
         }
 
@@ -52,14 +61,17 @@ std::string printTriangle(const Polygon* p){
         }
 
         void BSPtree::generate(const std::vector<Triangle>& c){
+            // тут вроде используется механизм с++, когда без счетчика попеременно в obj присваиваются элементы ряда с
             for(const auto& obj : c){
+                // вот тут не особо понял, что происходит
                 Polygon* trig = new Triangle(obj);
+                std::cout << "2" << std::endl;
                 add(trig);
             }
         }
 
         void BSPtree::add(Polygon* obj){
-            
+            std::cout << "3" << std::endl;
             if(root_ == nullptr){
                 root_ = new Node;
                 root_->obj = obj;
@@ -94,15 +106,19 @@ std::string printTriangle(const Polygon* p){
 
         void BSPtree::addInternal(Node* root, Triangle* t){
             bool chunked = false;
+            std::cout << "4" << std::endl;
             while(root != nullptr && !chunked){
                 Plane p(*(root->obj));
                 if(p.isAbove(*t)){
+                    std::cout << "6" << std::endl;
                     root = root->rhs;
                 }
                 else if(p.isBelow(*t)){
+                    std::cout << "7" << std::endl;
                     root = root->lhs;
                 }
                 else if(p.isOnPlane(*t)){
+                    std::cout << "5" << std::endl;
                     // To delete
                     if(root->obj->isIntersection(t)){
                         std::cout << "Intersection: "
@@ -113,6 +129,7 @@ std::string printTriangle(const Polygon* p){
                     root = root->lhs;
                 }
                 else if(p.isIntersection(*t)){
+                    std::cout << "8" << std::endl;
                     // To delete
                     if(root->obj->isIntersection(t)){
                         std::cout << "Intersection: "

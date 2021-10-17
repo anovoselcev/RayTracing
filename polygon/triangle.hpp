@@ -10,6 +10,18 @@ namespace rytg{
 
         std::array<Point, 3> p_;
 
+        private:
+
+        inline double Det2D(Point &p1, Point &p2, Point &p3);
+
+        void CheckTriWinding(Point &p1, Point &p2, Point &p3);
+
+        bool BoundaryCollideChk(Point &p1, Point &p2, Point &p3, double eps);
+
+        bool BoundaryDoesntCollideChk(Point &p1, Point &p2, Point &p3, double eps);
+
+        bool TriTri2D(const Triangle *t1, const Triangle *t2, double eps = 0.0, bool onBoundary  = true);
+
         public:
 
         Triangle() = default;
@@ -20,7 +32,7 @@ namespace rytg{
 
         Triangle(const Triangle& other) = default;
 
-        Point getPoint(size_t v) const noexcept;
+        Point getPoint(std::size_t v) const noexcept;
 
         bool isIntersection(const Triangle* other) const noexcept;
 
