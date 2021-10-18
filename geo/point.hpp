@@ -14,7 +14,7 @@ namespace rytg{
 
         bool operator==(const Point& p) const noexcept;
 
-        double get(size_t idx) const noexcept;
+        double get(std::size_t idx) const noexcept;
 
     };
 }

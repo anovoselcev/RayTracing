@@ -25,11 +25,11 @@ std::vector<rytg::Triangle> parseTriangles(){
 
 
 int main(){
-    //auto v = parseTriangles();
-    //rytg::BSPtree bsp(v);
+    auto v = parseTriangles();
+    rytg::BSPtree bsp(v);
    // int x;
-    test_rytg::test_vector();
-    test_rytg::test_interception();
+    //test_rytg::test_vector();
+    //test_rytg::test_interception();
 
     return 0;
 }

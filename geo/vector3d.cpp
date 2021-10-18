@@ -19,7 +19,7 @@ namespace rytg{
             return direction_.x == 0 && direction_.y == 0 && direction_.z == 0;
         }
 
-        double Vector3D::get(size_t index) const{
+        double Vector3D::get(std::size_t index) const{
             switch(index) {
                 case 0: return direction_.x;
                 case 1: return direction_.y;

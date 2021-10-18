@@ -20,7 +20,7 @@ namespace rytg{
 
         Triangle(const Triangle& other) = default;
 
-        Point getPoint(size_t v) const noexcept;
+        Point getPoint(std::size_t v) const noexcept;
 
         bool isIntersection(const Triangle* other) const noexcept;
 

@@ -2,6 +2,7 @@
 #define BSPTREE_HPP
 
 #include <vector>
+#include <array>
 #include "../polygon/polygon.hpp"
 
 namespace rytg{
