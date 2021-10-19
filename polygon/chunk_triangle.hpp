@@ -19,9 +19,13 @@ namespace rytg{
 
         ChunkTriangle(std::shared_ptr<Triangle> parent, const std::vector<Point>& points) noexcept;
 
-        bool isIntersection(const Polygon* p) const;
+        bool isIntersection(const Polygon* p) const override;
 
-        Plane getPlane() const;
+        size_t getID() const override;
+
+        Plane getPlane() const override;
+
+        size_t getParentID() const noexcept;
 
         Triangle* getParent() const noexcept;
 
