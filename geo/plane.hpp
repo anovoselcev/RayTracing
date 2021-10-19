@@ -3,7 +3,7 @@
 
 //#include "line.hpp"
 #include "vector3d.hpp"
-#include "../polygon/triangle.hpp"
+#include "../polygon/chunk_triangle.hpp"
 
 namespace rytg{
 
@@ -28,6 +28,8 @@ namespace rytg{
 
         bool isOnPlane(const Triangle& v) const noexcept;
 
+        bool isOnPlane(const ChunkTriangle& v) const noexcept;
+
         bool isOnPlane(const Polygon& p) const noexcept;
 
         bool isAbove(const Vector3D& v) const noexcept;
@@ -36,15 +38,21 @@ namespace rytg{
 
         bool isAbove(const Triangle& t) const noexcept;
 
+        bool isAbove(const ChunkTriangle& t) const noexcept;
+
         bool isAbove(const Polygon& t) const noexcept;
 
         bool isBelow(Point p) const noexcept;
 
         bool isBelow(const Triangle& t) const noexcept;
 
+        bool isBelow(const ChunkTriangle& t) const noexcept;
+
         bool isBelow(const Polygon& t) const noexcept;
 
         bool isIntersection(const Triangle& t) const noexcept;
+
+        bool isIntersection(const ChunkTriangle& t) const noexcept;
 
         bool isIntersection(const Polygon& t) const noexcept;
 

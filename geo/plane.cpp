@@ -36,6 +36,13 @@ namespace rytg{
         return isOnPlane(t.getPoint(0)) && isOnPlane(t.getPoint(1)) && isOnPlane(t.getPoint(2));
     }
 
+    bool Plane::isOnPlane(const ChunkTriangle& t) const noexcept{
+        for(size_t i = 0; i < t.getNumPoints(); ++i){
+            if(!isOnPlane(t.getPoint(i))) return false;
+        }
+        return true;
+    }
+
     bool Plane::isOnPlane(const Polygon& p) const noexcept{
         if(const Triangle* t = dynamic_cast<const Triangle*>(&p))
             return isOnPlane(*t);
@@ -52,6 +59,13 @@ namespace rytg{
 
     bool Plane::isAbove(const Triangle& t) const noexcept{
         return isAbove(t.getPoint(0)) && isAbove(t.getPoint(1)) && isAbove(t.getPoint(2));
+    }
+
+    bool Plane::isAbove(const ChunkTriangle& t) const noexcept{
+        for(size_t i = 0; i < t.getNumPoints(); ++i){
+            if(!isAbove(t.getPoint(i))) return false;
+        }
+        return true;
     }
 
     bool Plane::isAbove(const Polygon& p) const noexcept{
@@ -72,6 +86,13 @@ namespace rytg{
         return isBelow(t.getPoint(0)) && isBelow(t.getPoint(1)) && isBelow(t.getPoint(2));
     }
 
+    bool Plane::isBelow(const ChunkTriangle& t) const noexcept{
+        for(size_t i = 0; i < t.getNumPoints(); ++i){
+            if(!isBelow(t.getPoint(i))) return false;
+        }
+        return true;
+    }
+
     bool Plane::isBelow(const Polygon& p) const noexcept{
         if(const Triangle* t = dynamic_cast<const Triangle*>(&p))
             return isBelow(*t);
@@ -81,6 +102,10 @@ namespace rytg{
     }
 
     bool Plane::isIntersection(const Triangle& t) const noexcept{
+        return !isAbove(t) && !isBelow(t);
+    }
+
+    bool Plane::isIntersection(const ChunkTriangle& t) const noexcept{
         return !isAbove(t) && !isBelow(t);
     }
 
