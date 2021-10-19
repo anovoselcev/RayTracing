@@ -158,7 +158,6 @@ void BSPtree::addInternal(Node* root, Polygon* t){
             root = root->lhs;
         }
         else if(p.isOnPlane(*t)){
-            std::cout << "On plane" << std::endl;
             // To delete
             if(root->obj->isIntersection(t))
                 printIntersection(t, root->obj);
