@@ -1,6 +1,5 @@
 #include "triangle.hpp"
 #include "chunk_triangle.hpp"
-#include "vector3d.hpp"
 #include "../geo/plane.hpp"
 #include "../geo/line.hpp"
 
