@@ -21,6 +21,10 @@ namespace rytg{
 
         bool isIntersection(const Polygon* p) const override;
 
+        static bool isSameParent(const Polygon* lhs, const Polygon* rhs);
+
+        void setPoints(const std::vector<Point>& vp);
+
         size_t getID() const override;
 
         Plane getPlane() const override;
@@ -39,7 +43,7 @@ namespace rytg{
 
         static bool isChunck(const Polygon* p);
 
-        static std::array<Polygon*, 2> splitChunk(const ChunkTriangle* ct, const Plane& p);
+        static std::array<Polygon*, 2> splitChunk(ChunkTriangle* ct, const Plane& p);
     };
 }
 

@@ -2,6 +2,7 @@
 #include "../geo/plane.hpp"
 #include "../geo/line.hpp"
 #include <stdexcept>
+#include <algorithm>
 
 namespace rytg{
 
@@ -12,6 +13,19 @@ namespace rytg{
     bool ChunkTriangle::isIntersection(const Polygon* p) const{
         if(!parent_) return false;
         return parent_->isIntersection(p);
+    }
+
+    bool ChunkTriangle::isSameParent(const Polygon* lhs, const Polygon* rhs){
+        const Triangle* t1 = dynamic_cast<const Triangle*>(lhs);
+        const Triangle* t2 = dynamic_cast<const Triangle*>(rhs);
+        if(t1 && t2) return false;
+        const Triangle* t = std::max(t1, t2);
+        const ChunkTriangle* ch1 = dynamic_cast<const ChunkTriangle*>(lhs);
+        const ChunkTriangle* ch2 = dynamic_cast<const ChunkTriangle*>(rhs);
+        if(ch1 && ch2 && ChunkTriangle::isChunks(lhs, rhs)) return true;
+        if(t && ch1 && ch1->getParent() == t) return true;
+        if(t && ch2 && ch2->getParent() == t) return true;
+        return false;
     }
 
     Plane ChunkTriangle::getPlane() const{
@@ -44,6 +58,10 @@ namespace rytg{
         return parent_;
     }
 
+    void ChunkTriangle::setPoints(const std::vector<Point>& vp){
+        p_ = vp;
+    }
+
     bool ChunkTriangle::isChunks(const Polygon* lhs, const Polygon* rhs){
         const ChunkTriangle* ch_lhs = dynamic_cast<const ChunkTriangle*>(lhs);
         const ChunkTriangle* ch_rhs = dynamic_cast<const ChunkTriangle*>(rhs);
@@ -56,7 +74,7 @@ namespace rytg{
         return dynamic_cast<const ChunkTriangle*>(p) != nullptr;
     }
 
-    std::array<Polygon*, 2> ChunkTriangle::splitChunk(const ChunkTriangle* ct, const Plane& p){
+    std::array<Polygon*, 2> ChunkTriangle::splitChunk(ChunkTriangle* ct, const Plane& p){
         auto line = p.intersection(ct->getPlane());
         auto t = line.intersection(*ct->getParent(), p);
         std::vector<Point> above{line.getValue(t[0]), line.getValue(t[1])};
@@ -66,12 +84,18 @@ namespace rytg{
             if(p.isBelow(ct->getPoint(i))) below.push_back(ct->getPoint(i));
         }
         //TODO
-        /*
+
         auto last = std::unique(above.begin(), above.end());
         above.erase(last, above.end());
         last = std::unique(below.begin(), below.end());
         below.erase(last, below.end());
-        */
-        return {nullptr, nullptr};
+
+        if(above.size() <= 2) return {ct, nullptr};
+        if(below.size() <= 2) return {nullptr, ct};
+
+        ChunkTriangle* rhs = new ChunkTriangle(ct->getSharedParent(), above);
+        ct->setPoints(below);
+
+        return {ct, rhs};
     }
 }
