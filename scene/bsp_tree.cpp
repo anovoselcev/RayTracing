@@ -13,31 +13,21 @@
 
 namespace rytg{
 
-std::string printPoint(Point p){
-    std::stringstream ss;
-    ss << "(" << p.x << "," << p.y << "," << p.z << ")";
-    return ss.str();
-}
-
-std::string printTriangle(const Triangle* t){
-    std::stringstream ss;
-    ss << "{" << printPoint(t->getPoint(0)) << "," << printPoint(t->getPoint(1)) << "," << printPoint(t->getPoint(2)) << "}";
-    return ss.str();
-}
-
-std::string printTriangle(const Polygon* p){
-    if(const Triangle* t = dynamic_cast<const Triangle*>(p))
-        return printTriangle(t);
-    else if(const ChunkTriangle* ch = dynamic_cast<const ChunkTriangle*>(p))
-        return printTriangle(ch->getParent());
-    return std::string{};
-}
 
 void printIntersection(const Polygon* t, const Polygon* p){
-    std::cout << "Intersection: "
-              << printTriangle(t)
-              << "---"
-              << printTriangle(p)
+    size_t id1, id2;
+    if(Triangle::isTriangle(t))
+        id1 = dynamic_cast<const Triangle*>(t)->getID();
+    else
+        id1 = dynamic_cast<const ChunkTriangle*>(t)->getParentID();
+
+    if(Triangle::isTriangle(p))
+        id2 = dynamic_cast<const Triangle*>(p)->getID();
+    else
+        id2 = dynamic_cast<const ChunkTriangle*>(p)->getParentID();
+    std::cout << id1
+              << " "
+              << id2
               << std::endl;
 }
 
@@ -177,12 +167,14 @@ void BSPtree::addInternal(Node* root, Polygon* t){
             //findIntersectionAfterAddForChunk(root->lhs, t);
             //findIntersectionAfterAddForChunk(root->rhs, t);
             if(root->lhs){
+                if(root->rhs && !ChunkTriangle::isChunks(root->rhs->obj, root->lhs->obj))
+                    findIntersectionAfterAddForChunk(root->rhs, t);
                 root = root->lhs;
-                findIntersectionAfterAddForChunk(root->rhs, t);
             }
             else if(root->rhs){
+                if(root->lhs && !ChunkTriangle::isChunks(root->rhs->obj, root->lhs->obj))
+                    findIntersectionAfterAddForChunk(root->lhs, t);
                 root = root->rhs;
-                findIntersectionAfterAddForChunk(root->lhs, t);
             }
             else{
                 std::array<Polygon*,2> chunks = {nullptr, nullptr};
@@ -192,23 +184,26 @@ void BSPtree::addInternal(Node* root, Polygon* t){
                     chunks = ChunkTriangle::splitChunk(dynamic_cast<ChunkTriangle*>(t), p);
 
                 if(chunks[0] && chunks[1]){
+                    /*
                     Triangle* par = dynamic_cast<const ChunkTriangle*>(chunks[0])->getParent();
-                    findIntersectionAfterAddForChunk(root->lhs, par);
-                    findIntersectionAfterAddForChunk(root->rhs, par);
+                    if(root->lhs && root->rhs && !ChunkTriangle::isChunks(root->rhs->obj, root->lhs->obj)){
+                        findIntersectionAfterAddForChunk(root->lhs, par);
+                        findIntersectionAfterAddForChunk(root->rhs, par);
+                    }*/
                     addChunkedNode(root, chunks);
                 }
                 else if(chunks[0]){
                     if(root->lhs) addInternal(root->lhs, dynamic_cast<Triangle*>(chunks[0]));
                     else {
-                        addStandartNode(root, SIDE::LHS, chunks[0]);
                         findIntersectionAfterAddForChunk(root->rhs, t);
+                        addStandartNode(root, SIDE::LHS, chunks[0]);
                     }
                 }
                 else if(chunks[1]){
                     if(root->rhs)   addInternal(root->rhs, dynamic_cast<Triangle*>(chunks[1]));
                     else{
-                        addStandartNode(root, SIDE::RHS, chunks[1]);
                         findIntersectionAfterAddForChunk(root->lhs, t);
+                        addStandartNode(root, SIDE::RHS, chunks[1]);
                     }
                 }
                 return;
