@@ -32,32 +32,42 @@ namespace rytg{
     }
 
     // https://blackpawn.com/texts/pointinpoly/
-    bool Triangle::pointInTriangle( const Triangle* t, const Vector3D& p ) const noexcept
-    {
-        const Vector3D& a1 = Vector3D( t->getPoint(0) ) - Vector3D( t->getPoint(2) );
-        const Vector3D& b1 = Vector3D( t->getPoint(1) ) - Vector3D( t->getPoint(2) );
-        const float     aa = a1.dot(a1);
-        const float	    ab = a1.dot(b1);
-        const float     bb = b1.dot(b1);
-        const float	d  = aa*bb - ab*ab;
+    bool Triangle::isPointInTriangle(const Point& p) const noexcept{
+        const Vector3D a1 = Vector3D( getPoint(0) ) - Vector3D( getPoint(2) );
+        const Vector3D b1 = Vector3D( getPoint(1) ) - Vector3D( getPoint(2) );
+        const double    aa = a1.dot(a1);
+        const double	ab = a1.dot(b1);
+        const double    bb = b1.dot(b1);
+        const double	d  = aa*bb - ab*ab;
 
-        if ( fabs ( d ) < EPS )
+        if ( std::fabs ( d ) < deps )
             return false;
-      
-        const Vector3D& p1 = p - Vector3D( t->getPoint(2) );
-        const float     pa = p1.dot(a1);
-        const float	    pb = p1.dot(b1);
-        const float     u  = (pa*bb - pb*ab) / d;
+
+        const Vector3D  p1 = Vector3D(p) - Vector3D(getPoint(2) );
+        const double    pa = p1.dot(a1);
+        const double    pb = p1.dot(b1);
+        const double    u  = (pa*bb - pb*ab) / d;
 
         if ( u < 0 || u > 1 )
             return false;
 
-        const float v = (pb*aa - pa*ab) / d;
+        const double v = (pb*aa - pa*ab) / d;
 
         if ( v < 0 || v > 1 )
             return false;
 
-        return u + v <= 1; 
+        return u + v <= 1;
+    }
+
+    bool Triangle::isPlaneIntersection(const Triangle* t) const noexcept{
+        for (int i = 0; i < 3; i++){
+            // Если хотя бы одна точка второго треугольника внутри первого, значит есть пересечение треуг-ов
+            if (isPointInTriangle(t->getPoint(i)))
+                return true;
+            if (t->isPointInTriangle(getPoint(i)))
+                return true;
+        }
+        return false;
     }
 
     bool Triangle::isIntersection(const Triangle* t) const noexcept{
@@ -68,17 +78,10 @@ namespace rytg{
         
         if(p2.isOnPlane(*this)){
 
-            //std::cout << "On plane\n";
-            for (int i = 0; i < 3; i++){
-                // Если хотя бы одна точка второго треугольника внутри первого, значит есть пересечение треуг-ов
-                if ( pointInTriangle( this, Vector3D(t->getPoint(i)) ) )
-                    return true;
-                if ( pointInTriangle( t, Vector3D(this->getPoint(i)) ) )
-                    return true; 
-            };
-
-            return false;
+            if(isPlaneIntersection(t)) return true;
+            else                       return false;
         }
+
         Line L = p1.intersection(p2);
 
         auto t1 = L.intersection(*this, p2);

@@ -5,8 +5,6 @@
 #include "../geo/point.hpp"
 #include <array>
 
-#define EPS 0.001
-
 namespace rytg{
 
     class Triangle : public Polygon{
@@ -25,7 +23,9 @@ namespace rytg{
 
         Point getPoint(std::size_t v) const noexcept;
 
-        bool pointInTriangle( const Triangle* t, const Vector3D& p ) const noexcept;
+        bool isPointInTriangle(const Point& p) const noexcept;
+
+        bool isPlaneIntersection(const Triangle* t) const noexcept;
 
         bool isIntersection(const Triangle* other) const noexcept;
 
