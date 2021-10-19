@@ -92,9 +92,10 @@ void planeIntersect7(){
     std::cout << "planeIntersect7 done\n";
 }
 void test_interception(){
-    //self();
+    self();
     normal();
     onePoint();
+    intersecZ();
     notIntersect();
     planeIntersect1();
     planeIntersect2();
