@@ -197,14 +197,14 @@ void BSPtree::addInternal(Node* root, Polygon* t){
             if(chunks[0]){
                 if(root->lhs) addInternal(root->lhs, chunks[0]);
                 else {
-                    findIntersectionAfterAddForChunk(root->rhs, t);
+                    //findIntersectionAfterAddForChunk(root->rhs, t);
                     addStandartNode(root, SIDE::LHS, chunks[0]);
                 }
             }
             if(chunks[1]){
                 if(root->rhs)   addInternal(root->rhs, chunks[1]);
                 else{
-                    findIntersectionAfterAddForChunk(root->lhs, t);
+                    //findIntersectionAfterAddForChunk(root->lhs, t);
                     addStandartNode(root, SIDE::RHS, chunks[1]);
                 }
             }
