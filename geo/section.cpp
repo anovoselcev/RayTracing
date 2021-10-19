@@ -13,7 +13,7 @@ namespace rytg{
         return s;
     }
 
-    Point Section::get(size_t idx) const noexcept{
+    Point Section::get(std::size_t idx) const noexcept{
         switch(idx){
             case 0: return p_[0];
             case 1: return p_[1];

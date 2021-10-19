@@ -4,7 +4,7 @@
 
 namespace rytg{
 
-    double Point::get(size_t idx) const noexcept{
+    double Point::get(std::size_t idx) const noexcept{
         switch(idx){
             case 0: return x;
             case 1: return y;
