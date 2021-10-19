@@ -31,6 +31,10 @@ namespace rytg{
         return false;
     }
 
+    size_t Triangle::getID() const{
+        return id_;
+    }
+
     // https://blackpawn.com/texts/pointinpoly/
     bool Triangle::isPointInTriangle(const Point& p) const noexcept{
         const Vector3D a1 = Vector3D( getPoint(0) ) - Vector3D( getPoint(2) );
@@ -119,8 +123,7 @@ namespace rytg{
         below.erase(last, below.end());
         if(above.size() <= 2) return {trig, nullptr};
         if(below.size() <= 2) return {nullptr, trig};
-        auto trig_shared = std::make_shared<Triangle>(*trig);
-        delete trig;
+        auto trig_shared = std::shared_ptr<Triangle>(trig);
         Polygon* above_chunk = new ChunkTriangle(trig_shared, above);
         Polygon* below_chunk = new ChunkTriangle(trig_shared, below);
         return {below_chunk, above_chunk};

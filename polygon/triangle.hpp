@@ -31,6 +31,8 @@ namespace rytg{
 
         bool isIntersection(const Polygon* p) const override;
 
+        size_t getID() const override;
+
         Plane getPlane() const override;
 
         static std::array<Polygon*, 2> splitToChunks(Triangle* t, const Plane& p);
