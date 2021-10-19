@@ -95,7 +95,7 @@ void test_interception(){
     self();
     normal();
     onePoint();
-    intersecZ();
+    intersectZ();
     notIntersect();
     planeIntersect1();
     planeIntersect2();
