@@ -19,7 +19,7 @@ namespace rytg{
 
         bool isNull() const noexcept;
 
-        double get(size_t idx) const;
+        double get(std::size_t idx) const;
 
         double dot(const Vector3D& v) const noexcept;
 

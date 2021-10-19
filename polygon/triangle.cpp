@@ -1,8 +1,10 @@
 #include "triangle.hpp"
 #include "chunk_triangle.hpp"
+#include "vector3d.hpp"
 #include "../geo/plane.hpp"
 #include "../geo/line.hpp"
 
+#include <cmath>
 #include <algorithm>
 
 namespace rytg{
@@ -30,14 +32,53 @@ namespace rytg{
         return false;
     }
 
+    // https://blackpawn.com/texts/pointinpoly/
+    bool Triangle::pointInTriangle( const Triangle* t, const Vector3D& p ) const noexcept
+    {
+        const Vector3D& a1 = Vector3D( t->getPoint(0) ) - Vector3D( t->getPoint(2) );
+        const Vector3D& b1 = Vector3D( t->getPoint(1) ) - Vector3D( t->getPoint(2) );
+        const float     aa = a1.dot(a1);
+        const float	    ab = a1.dot(b1);
+        const float     bb = b1.dot(b1);
+        const float	d  = aa*bb - ab*ab;
+
+        if ( fabs ( d ) < EPS )
+            return false;
+      
+        const Vector3D& p1 = p - Vector3D( t->getPoint(2) );
+        const float     pa = p1.dot(a1);
+        const float	    pb = p1.dot(b1);
+        const float     u  = (pa*bb - pb*ab) / d;
+
+        if ( u < 0 || u > 1 )
+            return false;
+
+        const float v = (pb*aa - pa*ab) / d;
+
+        if ( v < 0 || v > 1 )
+            return false;
+
+        return u + v <= 1; 
+    }
+
     bool Triangle::isIntersection(const Triangle* t) const noexcept{
         Plane p1(*this);
         Plane p2(*t);
-
+  
         if(!p2.isIntersection(*this)) return false;
         
         if(p2.isOnPlane(*this)){
+
             //std::cout << "On plane\n";
+            for (int i = 0; i < 3; i++){
+                // Если хотя бы одна точка второго треугольника внутри первого, значит есть пересечение треуг-ов
+                if ( pointInTriangle( this, Vector3D(t->getPoint(i)) ) )
+                    return true;
+                if ( pointInTriangle( t, Vector3D(this->getPoint(i)) ) )
+                    return true; 
+            };
+
+            return false;
         }
         Line L = p1.intersection(p2);
 
