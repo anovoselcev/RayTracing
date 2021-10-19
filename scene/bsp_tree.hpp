@@ -48,8 +48,6 @@ namespace rytg{
 
         void addInternal(Node* root, Polygon* p);
 
-        void addNode(Node* root, Node* lhs, Node* rhs);
-
         void delNode(Node* n);
 
         void findIntersectionAfterAddForChunk(Node* side, const Polygon* t);
