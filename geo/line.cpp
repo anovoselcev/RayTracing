@@ -2,7 +2,7 @@
 #include "plane.hpp"
 #include <limits>
 #include <cmath>
-#include <map>
+#include <unordered_set>
 
 namespace rytg{
 
@@ -69,20 +69,20 @@ namespace rytg{
     }
 
     double Line::intersection(const Section& sec, double s) const noexcept{
-        std::map<double, bool> checker;
+        std::unordered_set<double> checker;
         for(wint_t j = 0; j < 3; ++j){
             double tmp = NAN;
             double numer = sec.get(0).get(j) + s * (sec.get(1).get(j) - sec.get(0).get(j)) - P0_.get(j);
             if(std::abs(L_.get(j)) > deps){
                 tmp = numer / L_.get(j);
-                checker[tmp] = true;
+                checker.insert(tmp);
             }
             else if(std::fabs(numer) > deps){
                 return NAN;
             }
         }
         if(checker.size() == 1)
-            return checker.begin()->first;
+            return *checker.begin();
         return NAN;
     }
  
