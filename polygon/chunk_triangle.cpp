@@ -32,11 +32,11 @@ namespace rytg{
         if(parent_) return parent_->getPlane();
         return Plane(Vector3D(), 0.0);
     }
-
+    /*
     size_t ChunkTriangle::getID() const{
         return id_;
     }
-
+    */
     size_t ChunkTriangle::getParentID() const noexcept{
         return parent_->getID();
     }

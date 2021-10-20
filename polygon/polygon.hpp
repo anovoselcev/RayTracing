@@ -7,21 +7,21 @@ class Plane;
 
 class Polygon{
 
-    static size_t ID;
+    //static size_t ID;
 
 protected:
 
-    size_t id_ = 0;
+    //size_t id_ = 0;
 
 public:
 
-    Polygon();
+    //Polygon();
 
     virtual bool isIntersection(const Polygon* p) const = 0;
 
     virtual Plane getPlane() const = 0;
 
-    virtual size_t getID() const = 0;
+    //virtual size_t getID() const = 0;
 
     virtual ~Polygon();
 };

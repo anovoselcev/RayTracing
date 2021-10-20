@@ -8,7 +8,11 @@
 
 namespace rytg{
 
-    Triangle::Triangle(Point p1, Point p2, Point p3) : p_({p1, p2, p3}) {}
+    size_t Triangle::ID = 0;
+
+    Triangle::Triangle() : id_(ID++){}
+
+    Triangle::Triangle(Point p1, Point p2, Point p3) : id_(ID++), p_({p1, p2, p3}) {}
 
     Point Triangle::getPoint(size_t index) const noexcept{
         switch(index) {

@@ -28,8 +28,8 @@ void parseTriangles(){
 
 
 int main(){
-    test_rytg::test_vector();
-    test_rytg::test_interception();
+    //test_rytg::test_vector();
+    //test_rytg::test_interception();
     parseTriangles();
     //rytg::BSPtree bsp(v);
 

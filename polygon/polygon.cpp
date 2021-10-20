@@ -2,9 +2,9 @@
 
 namespace rytg{
 
-    Polygon::Polygon() : id_(ID++){}
+    //Polygon::Polygon() : id_(ID++){}
 
     Polygon::~Polygon(){}
 
-    size_t Polygon::ID = 0;
+    //size_t Polygon::ID = 0;
 }

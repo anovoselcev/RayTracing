@@ -25,7 +25,7 @@ namespace rytg{
 
         void setPoints(const std::vector<Point>& vp);
 
-        size_t getID() const override;
+        //size_t getID() const override;
 
         Plane getPlane() const override;
 
