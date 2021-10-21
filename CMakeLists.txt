@@ -16,4 +16,4 @@ file(GLOB POLY_SOURCES "polygon/*.cpp")
 file(GLOB SCENE_SOURCES "scene/*.cpp")
 
 add_executable(RayTracing main.cpp ${GEO_SOURCES} ${SCENE_SOURCES} ${POLY_SOURCES})
-target_compile_options (RayTracing PRIVATE -Wgnu-array-member-paren-init)
+target_compile_options (RayTracing PRIVATE -lstdc++fs -std=c++17)

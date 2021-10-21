@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include <filesystem>
+#include <cstring>
 
 rytg::BSPtree bsp;
 
@@ -36,6 +36,28 @@ void print_help(){
     std::cout << "############################################\n";
 }
 
+std::string make_path(const char* path){
+    bool isWin = false;
+#ifdef WIN32
+    isWin = true;
+#endif
+    if(!isWin) return std::string(path);
+
+    std::size_t N = std::strlen(path);
+    N += std::count(path, path + N, '\\');
+    std::string result;
+    result.reserve(N);
+    for(const char* it = path; *it != '\0'; it++){
+        if(*it != '\\') result.push_back(*it);
+        else{
+            result.push_back('\\');
+            result.push_back('\\');
+        }
+    }
+    return result;
+
+}
+
 int main(int argc, char* argv[]){
     if(argc != 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
@@ -44,15 +66,14 @@ int main(int argc, char* argv[]){
         print_help();
         return -1;
     }
-    if(strcmp(argv[1], "--help") == 0){
+    if(std::strcmp(argv[1], "--help") == 0){
         print_help();
     }
-    else if(strcmp("cin", argv[1]) == 0){
+    else if(std::strcmp("cin", argv[1]) == 0){
         parseTriangles(std::cin);
     }
     else{
-        std::filesystem::path filename(argv[1]);
-        std::ifstream f(filename);
+        std::ifstream f(make_path(argv[1]));
         if(f.good())
             parseTriangles(f);
         else{
