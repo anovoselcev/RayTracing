@@ -14,24 +14,26 @@
 
 namespace rytg{
 
-struct IntersectionMap{
+class IntersectionMap{
+
     std::map<size_t, std::set<size_t>> i_map;
 
-    void insert(size_t lhs, size_t rhs){
-        if(i_map.find(lhs) != i_map.end())
-            i_map[lhs].insert(rhs);
-        else if(i_map.find(rhs) != i_map.end())
-            i_map[rhs].insert(lhs);
-        else{
-            i_map[lhs].insert(rhs);
+    void insert_internal(size_t key, size_t val){
+        if(i_map[key].find(val) == i_map[key].end()){
+            std::cout << key << " " << val << std::endl;
+            i_map[key].insert(val);
         }
     }
 
+public:
 
-    ~IntersectionMap(){
-        for(const auto&[key, vals] : i_map){
-            for(const auto& val : vals)
-                std::cout << key << " " << val << std::endl;
+    void insert(size_t lhs, size_t rhs){
+        if(i_map.find(lhs) != i_map.end())
+            insert_internal(lhs, rhs);
+        else if(i_map.find(rhs) != i_map.end())
+            insert_internal(rhs, lhs);
+        else{
+            insert_internal(lhs, rhs);
         }
     }
 };
@@ -49,10 +51,7 @@ void printIntersection(const Polygon* t, const Polygon* p){
         id2 = dynamic_cast<const Triangle*>(p)->getID();
     else
         id2 = dynamic_cast<const ChunkTriangle*>(p)->getParentID();
-    /*std::cout << id1
-              << " "
-              << id2
-              << std::endl;*/
+
     im.insert(id1, id2);
 }
 
@@ -92,10 +91,7 @@ void BSPtree::add(Polygon* obj){
         root_->obj = obj;
         num_leafs = 1;
     }
-    else{
-        //Triangle* tr = dynamic_cast<Triangle*>(obj);
-        addInternal(root_, obj);
-    }
+    else addInternal(root_, obj);
 }
 
 void BSPtree::addStandartNode(Node* leaf, SIDE s , Polygon* obj){
@@ -158,17 +154,11 @@ void BSPtree::addInternal(Node* root, Polygon* t){
 
             if(chunks[0]){
                 if(root->lhs) addInternal(root->lhs, chunks[0]);
-                else {
-                    //findIntersectionAfterAddForChunk(root->rhs, t);
-                    addStandartNode(root, SIDE::LHS, chunks[0]);
-                }
+                else          addStandartNode(root, SIDE::LHS, chunks[0]);
             }
             if(chunks[1]){
                 if(root->rhs)   addInternal(root->rhs, chunks[1]);
-                else{
-                    //findIntersectionAfterAddForChunk(root->lhs, t);
-                    addStandartNode(root, SIDE::RHS, chunks[1]);
-                }
+                else            addStandartNode(root, SIDE::RHS, chunks[1]);
             }
             return;
         }
