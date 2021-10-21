@@ -115,7 +115,9 @@ namespace rytg{
     std::array<Polygon*, 2> Triangle::splitToChunks(Triangle* trig, const Plane& p){
         auto line = p.intersection(trig->getPlane());
         auto t = line.intersection(*trig, p);
-        std::vector<Point> above{line.getValue(t[0]), line.getValue(t[1])};
+        std::vector<Point> above(3);
+        for(auto param : t)
+            above.push_back(line.getValue(param));
         std::vector<Point> below(above);
         for(uint8_t i = 0; i < 3; ++i){
             if(p.isAbove(trig->getPoint(i))) above.push_back(trig->getPoint(i));

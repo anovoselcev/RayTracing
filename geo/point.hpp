@@ -1,10 +1,9 @@
 #ifndef POINT_HPP
 #define POINT_HPP
-#include <limits>
-
+#include <cstddef>
 namespace rytg{
 
-    inline double deps = std::numeric_limits<double>::epsilon();
+    inline double deps = 1e-10;
 
     struct Point{
 

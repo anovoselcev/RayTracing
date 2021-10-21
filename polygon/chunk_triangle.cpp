@@ -77,7 +77,9 @@ namespace rytg{
     std::array<Polygon*, 2> ChunkTriangle::splitChunk(ChunkTriangle* ct, const Plane& p){
         auto line = p.intersection(ct->getPlane());
         auto t = line.intersection(*ct->getParent(), p);
-        std::vector<Point> above{line.getValue(t[0]), line.getValue(t[1])};
+        std::vector<Point> above(3);
+        for(auto param : t)
+            above.push_back(line.getValue(param));
         std::vector<Point> below(above);
         for(uint8_t i = 0; i < ct->getNumPoints(); ++i){
             if(p.isAbove(ct->getPoint(i))) above.push_back(ct->getPoint(i));

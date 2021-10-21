@@ -44,13 +44,9 @@ namespace rytg{
 
         void addStandartNode(Node* leaf, SIDE s, Polygon* t);
 
-        void addChunkedNode(Node* leaf, const std::array<Polygon*, 2>&);
-
         void addInternal(Node* root, Polygon* p);
 
         void delNode(Node* n);
-
-        void findIntersectionAfterAddForChunk(Node* side, const Polygon* t);
   
     };
 }

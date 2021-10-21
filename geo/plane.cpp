@@ -29,7 +29,7 @@ namespace rytg{
     }
 
     bool Plane::isOnPlane(const Vector3D& v) const noexcept{
-        return (N_.dot(v) + d_) == 0;
+        return std::fabs(N_.dot(v) + d_) < deps;
     }
 
     bool Plane::isOnPlane(const Triangle& t) const noexcept{
