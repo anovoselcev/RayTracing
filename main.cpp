@@ -5,33 +5,60 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include <filesystem>
 
 rytg::BSPtree bsp;
 
-void parseTriangles(){
+void parseTriangles(std::istream& is){
     size_t N = 0;
-    std::fstream f("D:\\RayTraycing\\input.in");
-    f >> N;
+    is >> N;
     double x, y, z;
     for(size_t i = 0; i < N; ++i){
         rytg::Point p1, p2, p3;
-        f >> x >> y >> z;
+        is >> x >> y >> z;
         p1 = {x, y, z};
-        f >> x >> y >> z;
+        is >> x >> y >> z;
         p2 = {x, y, z};
-        f >> x >> y >> z;
+        is >> x >> y >> z;
         p3 = {x, y, z};
         rytg::Triangle* T = new rytg::Triangle(p1, p2, p3);
         bsp.add(T);
     }
 }
 
+void print_help(){
+    std::cout << "############################################\n";
+    std::cout << "Help:\n";
+    std::cout << "To use std::cin run: program_name cin\n";
+    std::cout << "To use file write absolute filepath run: program_name folder1/folder2/file.in\n";
+    std::cout << "To call help write: program_name --help\n";
+    std::cout << "############################################\n";
+}
 
-int main(){
-    //test_rytg::test_vector();
-    //test_rytg::test_interception();
-    parseTriangles();
-    //rytg::BSPtree bsp(v);
-
+int main(int argc, char* argv[]){
+    if(argc != 2){
+        std::cout << "!!!!!!!!!!!!!!!!\n";
+        std::cout << "Wrong arguments\n";
+        std::cout << "!!!!!!!!!!!!!!!!\n\n";
+        print_help();
+        return -1;
+    }
+    if(strcmp(argv[1], "--help") == 0){
+        print_help();
+    }
+    else if(strcmp("cin", argv[1]) == 0){
+        parseTriangles(std::cin);
+    }
+    else{
+        std::filesystem::path filename(argv[1]);
+        std::ifstream f(filename);
+        if(f.good())
+            parseTriangles(f);
+        else{
+            std::cerr << "can't open file\n";
+            return -1;
+        }
+    }
     return 0;
 }
