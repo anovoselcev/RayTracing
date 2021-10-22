@@ -7,13 +7,10 @@ set (CMAKE_CXX_STANDARD 17)
 
 #include_directories(${COMPUTECPP_INCLUDE_DIRECTORY})
 
-include_directories(geo)
-include_directories(scene)
-include_directories(polygon)
-
 file(GLOB GEO_SOURCES "geo/*.cpp")
 file(GLOB POLY_SOURCES "polygon/*.cpp")
 file(GLOB SCENE_SOURCES "scene/*.cpp")
 
 add_executable(RayTracing main.cpp ${GEO_SOURCES} ${SCENE_SOURCES} ${POLY_SOURCES})
-target_compile_options (RayTracing PRIVATE -lstdc++fs -std=c++17)
+
+target_include_directories(RayTracing PRIVATE "${CMAKE_CURRENT_LIST_DIR}")
