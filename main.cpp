@@ -30,7 +30,7 @@ void parseTriangles(std::istream& is){
 void print_help(){
     std::cout << "############################################\n";
     std::cout << "Help:\n";
-    std::cout << "To use std::cin run: program_name cin\n";
+    std::cout << "To use std::cin run: program_name cin | program_name\n";
     std::cout << "To use file write absolute filepath run: program_name folder1/folder2/file.in\n";
     std::cout << "To call help write: program_name --help\n";
     std::cout << "############################################\n";
