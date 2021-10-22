@@ -59,20 +59,20 @@ std::string make_path(const char* path){
 }
 
 int main(int argc, char* argv[]){
-    if(argc != 2){
+    if(argc > 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
         std::cout << "Wrong arguments\n";
         std::cout << "!!!!!!!!!!!!!!!!\n\n";
         print_help();
         return -1;
     }
-    if(std::strcmp(argv[1], "--help") == 0){
-        print_help();
-    }
-    else if(std::strcmp("cin", argv[1]) == 0){
+    if(argc == 1 || std::strcmp("cin", argv[1]) == 0){
         parseTriangles(std::cin);
     }
-    else{
+    else if(argc == 2 && std::strcmp(argv[1], "--help") == 0){
+        print_help();
+    }
+    else if(argc == 2){
         std::ifstream f(make_path(argv[1]));
         if(f.good())
             parseTriangles(f);
