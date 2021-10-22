@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <array>
-#include "../polygon/polygon.hpp"
+#include "polygon/polygon.hpp"
 
 namespace rytg{
 

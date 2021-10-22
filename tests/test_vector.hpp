@@ -1,4 +1,4 @@
-#include "..\geo\vector3d.hpp"
+#include "geo/vector3d.hpp"
 #include <cassert>
 #include <cmath>
 

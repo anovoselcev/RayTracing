@@ -1,8 +1,8 @@
 #include "bsp_tree.hpp"
-#include "../polygon/triangle.hpp"
-#include "../polygon/chunk_triangle.hpp"
-#include "../geo/plane.hpp"
-#include "../geo/line.hpp"
+#include "polygon/triangle.hpp"
+#include "polygon/chunk_triangle.hpp"
+#include "geo/plane.hpp"
+#include "geo/line.hpp"
 
 #include <iostream>
 #include <sstream>

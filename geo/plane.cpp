@@ -1,6 +1,6 @@
 #include "plane.hpp"
 #include "line.hpp"
-#include "../polygon/chunk_triangle.hpp"
+#include "polygon/chunk_triangle.hpp"
 #include <cmath>
 
 namespace rytg{

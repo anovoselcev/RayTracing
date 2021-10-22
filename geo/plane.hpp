@@ -3,7 +3,7 @@
 
 //#include "line.hpp"
 #include "vector3d.hpp"
-#include "../polygon/chunk_triangle.hpp"
+#include "polygon/chunk_triangle.hpp"
 
 namespace rytg{
 

@@ -1,4 +1,4 @@
-#include "../polygon/triangle.hpp"
+#include "polygon/triangle.hpp"
 #include <cassert>
 #include <iostream>
 

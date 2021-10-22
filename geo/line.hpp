@@ -1,7 +1,7 @@
 #ifndef LINE_HPP
 #define LINE_HPP
 
-#include "../polygon/triangle.hpp"
+#include "polygon/triangle.hpp"
 #include "vector3d.hpp"
 #include "section.hpp"
 #include "plane.hpp"
