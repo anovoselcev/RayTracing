@@ -59,6 +59,8 @@ std::string make_path(const char* path){
 }
 
 int main(int argc, char* argv[]){
+    parseTriangles(std::cin);
+    /*
     if(argc > 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
         std::cout << "Wrong arguments\n";
@@ -80,6 +82,6 @@ int main(int argc, char* argv[]){
             std::cerr << "can't open file\n";
             return -1;
         }
-    }
+    }*/
     return 0;
 }
