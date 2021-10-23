@@ -1,7 +1,7 @@
 #ifndef CHUNK_TRIANGLE_HPP
 #define CHUNK_TRIANGLE_HPP
 
-#include "triangle.hpp"
+#include "polygon/triangle.hpp"
 #include <memory>
 #include <vector>
 

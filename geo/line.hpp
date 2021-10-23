@@ -2,9 +2,9 @@
 #define LINE_HPP
 
 #include "polygon/triangle.hpp"
-#include "vector3d.hpp"
-#include "section.hpp"
-#include "plane.hpp"
+#include "geo/vector3d.hpp"
+#include "geo/section.hpp"
+#include "geo/plane.hpp"
 
 #include <vector>
 

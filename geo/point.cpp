@@ -1,4 +1,4 @@
-#include "point.hpp"
+#include "geo/point.hpp"
 #include <cmath>
 #include <sstream>
 

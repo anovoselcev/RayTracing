@@ -1,7 +1,7 @@
 #ifndef VECTOR3D_HPP
 #define VECTOR3D_HPP
 
-#include "point.hpp"
+#include "geo/point.hpp"
 
 namespace rytg{
 

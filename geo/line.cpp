@@ -1,6 +1,4 @@
-#include "line.hpp"
-#include "plane.hpp"
-#include <limits>
+#include "geo/line.hpp"
 #include <cmath>
 #include <unordered_set>
 

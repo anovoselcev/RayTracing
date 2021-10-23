@@ -1,6 +1,6 @@
 #ifndef TRIANGLE_HPP
 #define TRIANGLE_HPP
-#include "polygon.hpp"
+#include "polygon/polygon.hpp"
 #include "geo/vector3d.hpp"
 #include "geo/point.hpp"
 #include <array>

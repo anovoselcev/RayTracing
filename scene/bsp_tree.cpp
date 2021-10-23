@@ -1,4 +1,4 @@
-#include "bsp_tree.hpp"
+#include "scene/bsp_tree.hpp"
 #include "polygon/triangle.hpp"
 #include "polygon/chunk_triangle.hpp"
 #include "geo/plane.hpp"

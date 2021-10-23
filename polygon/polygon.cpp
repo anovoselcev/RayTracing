@@ -1,4 +1,4 @@
-#include "polygon.hpp"
+#include "polygon/polygon.hpp"
 
 namespace rytg{
 

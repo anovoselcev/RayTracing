@@ -1,5 +1,5 @@
-#include "plane.hpp"
-#include "line.hpp"
+#include "geo/plane.hpp"
+#include "geo/line.hpp"
 #include "polygon/chunk_triangle.hpp"
 #include <cmath>
 

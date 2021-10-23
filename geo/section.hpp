@@ -1,8 +1,8 @@
 #ifndef SECTION_HPP
 #define SECTION_HPP
 
-#include "point.hpp"
-#include "plane.hpp"
+#include "geo/point.hpp"
+#include "geo/plane.hpp"
 #include <array>
 
 namespace rytg{

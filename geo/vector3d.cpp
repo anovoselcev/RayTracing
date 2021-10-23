@@ -1,4 +1,4 @@
-#include "vector3d.hpp"
+#include "geo/vector3d.hpp"
 #include <stdexcept>
 
 namespace rytg{
