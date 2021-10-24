@@ -9,17 +9,17 @@ namespace rytg{
 
     class Triangle : public Polygon{
 
-        static size_t ID;
+        //static size_t ID;
 
-        size_t id_ = 0;
+        //size_t id_ = 0;
 
         std::array<Point, 3> p_;
 
         public:
 
-        //Triangle() = default;
+        Triangle() = default;
 
-        Triangle();
+        //Triangle();
 
         ~Triangle() = default;
 
@@ -37,7 +37,7 @@ namespace rytg{
 
         bool isIntersection(const Polygon* p) const override;
 
-        size_t getID() const;
+        //size_t getID() const;
 
         Plane getPlane() const override;
 

@@ -8,11 +8,11 @@
 
 namespace rytg{
 
-    size_t Triangle::ID = 0;
+    //size_t Triangle::ID = 0;
 
-    Triangle::Triangle() : id_(ID++){}
+    //Triangle::Triangle() : id_(ID++){}
 
-    Triangle::Triangle(Point p1, Point p2, Point p3) : id_(ID++), p_({p1, p2, p3}) {}
+    Triangle::Triangle(Point p1, Point p2, Point p3) : p_({p1, p2, p3}) {}
 
     Point Triangle::getPoint(size_t index) const noexcept{
         switch(index) {
@@ -35,9 +35,11 @@ namespace rytg{
         return false;
     }
 
-    size_t Triangle::getID() const{
+    /*
+      size_t Triangle::getID() const{
         return id_;
     }
+    */
 
     // https://blackpawn.com/texts/pointinpoly/
     bool Triangle::isPointInTriangle(const Point& p) const noexcept{

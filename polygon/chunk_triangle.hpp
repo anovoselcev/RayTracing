@@ -29,7 +29,7 @@ namespace rytg{
 
         Plane getPlane() const override;
 
-        size_t getParentID() const noexcept;
+        //size_t getParentID() const noexcept;
 
         Triangle* getParent() const noexcept;
 
