@@ -1,5 +1,6 @@
 #include "geo/line.hpp"
 #include <cmath>
+#include <algorithm>
 #include <unordered_set>
 
 namespace rytg{
@@ -51,16 +52,13 @@ namespace rytg{
         double inter[3] = {intersection(s1, s1.intersection(p)),
                            intersection(s2, s2.intersection(p)),
                            intersection(s3, s3.intersection(p))};
-        std::size_t not_nan = 0;
-        for(wint_t i = 0; i < 3; ++i){
+        for(wint_t i = 0; i < 3; ++i)
             if(inter[i] == inter[i]){
-                not_nan++;
                 res.push_back(inter[i]);
-            }
         }
-        if(res.size() == 2){
-            double start = std::min(res[0], res[1]);
-            double end   = std::max(res[0], res[1]);
+        if(res.size() >= 2){
+            double start = *std::min(res.begin(), res.end());
+            double end   = *std::max(res.begin(), res.end());
             return {start, end}; 
         }
         return res; 
@@ -71,7 +69,7 @@ namespace rytg{
         for(wint_t j = 0; j < 3; ++j){
             double tmp = NAN;
             double numer = sec.get(0).get(j) + s * (sec.get(1).get(j) - sec.get(0).get(j)) - P0_.get(j);
-            if(std::abs(L_.get(j)) > deps){
+            if(std::fabs(L_.get(j)) > deps){
                 tmp = numer / L_.get(j);
                 checker.insert(tmp);
             }
