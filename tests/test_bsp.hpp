@@ -25,10 +25,16 @@ void test_one_point(){
     rytg::BSPtree bsp(oss);
     rytg::Triangle* t1 = new rytg::Triangle({0, 0 ,0}, {1, 1, 1}, {1, 0, 0});
     rytg::Triangle* t2 = new rytg::Triangle({0, 0, 0}, {0, 1, 0}, {0, 1, -1});
+    rytg::Triangle* t3 = new rytg::Triangle({0, 0, 0}, {-1, 0, 0}, {-1, 0, 1});
     bsp.add(t1);
     bsp.add(t2);
-    assert(oss.str() == "0\n1\n");
+    bsp.add(t3);
+    assert(oss.str() == "0\n1\n2\n");
     std::cout << "BSP - one point done\n";
+}
+
+void test_edge(){
+
 }
 
 

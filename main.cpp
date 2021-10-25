@@ -2,6 +2,7 @@
 #include "scene/bsp_tree.hpp"
 #include "tests/test_interception.hpp"
 #include "tests/test_vector.hpp"
+#include "tests/test_bsp.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -59,7 +60,8 @@ std::string make_path(const char* path){
 }
 
 int main(int argc, char* argv[]){
-    parseTriangles(std::cin);
+    test_rytg::test_bsp();
+    //parseTriangles(std::cin);
     /*
     if(argc > 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
