@@ -16,6 +16,9 @@ namespace rytg{
 
       double intersection(const Plane& p) const noexcept;
 
+      static bool isIntersection(const std::vector<double>& t1,
+                                 const std::vector<double>& t2);
+
       Point get(std::size_t idx) const noexcept;
         
     };
