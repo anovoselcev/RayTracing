@@ -96,22 +96,8 @@ namespace rytg{
 
         auto t1 = L.intersection(*this, p2);
         auto t2 = L.intersection(*t, p1);
-        
-        if (t1.size() == 1 && t2.size() == 1)
-            return t1[0] == t2[0];
 
-        if (t1.size() == 1 && t2.size() == 2)
-            if(t1[0] >= t2[0] && t1[0] <= t2[1]) return true;
-        
-        if (t1.size() == 2 && t2.size() == 1)
-            if(t2[0] >= t1[0] && t2[0] <= t1[1]) return true;
-
-        if (t1.size() == 2 && t2.size() == 2){
-            if(t1[0] <= t2[0] && t1[1] >= t2[0]) return true;
-            if(t2[0] <= t1[0] && t2[1] >= t1[0]) return true;
-        }
-
-        return false;
+        return Section::isIntersection(t1, t2);
     }
 
     std::array<Polygon*, 2> Triangle::splitToChunks(Triangle* trig, const Plane& p){
