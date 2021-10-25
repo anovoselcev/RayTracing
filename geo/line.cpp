@@ -57,9 +57,9 @@ namespace rytg{
                 res.push_back(inter[i]);
         }
         if(res.size() >= 2){
-            double start = *std::min(res.begin(), res.end());
-            double end   = *std::max(res.begin(), res.end());
-            return {start, end}; 
+            std::sort(res.begin(), res.end());
+            auto it = std::unique(res.begin(), res.end());
+            res.erase(it, res.end());
         }
         return res; 
     }
