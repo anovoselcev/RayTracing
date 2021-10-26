@@ -130,7 +130,7 @@ void BSPtree::addInternal(Node* root, Polygon* t, size_t id){
                 if(root->rhs)   addInternal(root->rhs, chunks[1], top_id);
                 else            addStandartNode(root, SIDE::RHS, chunks[1], top_id);
             }
-            if(Triangle::isTriangle(t))
+            if(Triangle::isTriangle(t) && id == 0)
                 top_id++;
             return;
         }
