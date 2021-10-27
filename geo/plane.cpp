@@ -19,17 +19,21 @@ namespace rytg{
     }
 
     bool Plane::operator==(const Plane& p) const noexcept{
-        return N_.cross(p.N_).isNull() && std::fabs(d_) == std::fabs(p.d_);
+        return N_.cross(p.N_).isNull() && std::fabs(d_ - p.d_) <= deps;
     }
 
     bool Plane::isAbove(const Vector3D& v) const noexcept{
         double value = N_.dot(v) + d_;
-        if(value >= 0) return true;
+        if(value > 0) return true;
         return false;
     }
 
     bool Plane::isOnPlane(const Vector3D& v) const noexcept{
-        return std::fabs(N_.dot(v) + d_) < deps;
+        return std::fabs(distance(v)) <= deps;
+    }
+
+    bool Plane::isOnPlane(const Point& p) const noexcept{
+        return std::fabs(distance(p)) <= deps;
     }
 
     bool Plane::isOnPlane(const Triangle& t) const noexcept{
@@ -51,8 +55,8 @@ namespace rytg{
         return false;
     }
 
-    bool Plane::isAbove(Point p) const noexcept{
-        double value = N_.dot(Vector3D(p)) + d_;
+    bool Plane::isAbove(const Point& p) const noexcept{
+        double value = N_.dot(p) + d_;
         if(value > 0) return true;
         return false;
     }
@@ -76,8 +80,8 @@ namespace rytg{
         return false;
     }
 
-    bool Plane::isBelow(Point p) const noexcept{
-        double value = N_.dot(Vector3D(p)) + d_;
+    bool Plane::isBelow(const Point& p) const noexcept{
+        double value = N_.dot(p) + d_;
         if(value < 0) return true;
         return false;
     }
@@ -117,8 +121,12 @@ namespace rytg{
         return false;
     }
 
-    double Plane::distance(Point p) const noexcept{
-        return N_.dot(Vector3D(p)) + d_;
+    double Plane::distance(const Point& p) const noexcept{
+        return std::fabs(N_.dot(p) + d_);
+    }
+
+    double Plane::distance(const Vector3D& v) const noexcept{
+        return std::fabs(N_.dot(v) + d_);
     }
 
     Vector3D Plane::getNormal() const noexcept{
@@ -127,6 +135,14 @@ namespace rytg{
 
     double Plane::getConstant() const noexcept{
         return d_;
+    }
+
+    double Plane::getValue(const Point& p) const noexcept{
+        return N_.dot(p) + d_;
+    }
+
+    double Plane::getValue(const Vector3D &v) const noexcept{
+        return N_.dot(v) + d_;
     }
 
     Line Plane::intersection(const Plane& p) const noexcept{
