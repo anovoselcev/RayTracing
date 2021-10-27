@@ -18,6 +18,8 @@ BSPtree::BSPtree(const std::vector<Triangle>& c){
 }
 
 BSPtree::~BSPtree(){
+    for(auto id : ids_)
+        os_ << id << '\n';
     delNode(root_);
 }
 
@@ -130,6 +132,8 @@ void BSPtree::addInternal(Node* root, Polygon* t, size_t id){
                 if(root->rhs)   addInternal(root->rhs, chunks[1], top_id);
                 else            addStandartNode(root, SIDE::RHS, chunks[1], top_id);
             }
+            //findIntersectionAfterAddForChunk(root->lhs, t);
+            //findIntersectionAfterAddForChunk(root->rhs, t);
             if(Triangle::isTriangle(t) && id == 0)
                 top_id++;
             return;
@@ -140,10 +144,9 @@ void BSPtree::addInternal(Node* root, Polygon* t, size_t id){
 }
 
 void BSPtree::printIntersection(size_t id){
-    if(ids_.find(id) == ids_.end()){
+    //if(ids_.find(id) == ids_.end()){
         ids_.insert(id);
-        os_ << id << '\n';
-    }
+        //os_ << id << '\n';
+    //}
 }
-
 }
