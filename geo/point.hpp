@@ -3,7 +3,7 @@
 #include <cstddef>
 namespace rytg{
 
-    inline double deps = 1e-10;
+    inline double deps = 1e-6;
 
     struct Point{
 
