@@ -7,8 +7,8 @@ namespace rytg{
     Section::Section(const Point& p1, const Point& p2) noexcept : p_({p1, p2}){}
 
     double Section::intersection(const Plane& p) const noexcept {
-        double d_u0 = p.distance(p_[0]);
-        double d_u1 = p.distance(p_[1]);
+        double d_u0 = p.getValue(p_[0]);
+        double d_u1 = p.getValue(p_[1]);
         if(std::fabs(d_u1 - d_u0) < deps) return NAN;
         double s = - d_u0 / (d_u1 - d_u0);
         return s;
@@ -41,6 +41,15 @@ namespace rytg{
 
         return false;
 
+    }
+
+    bool Section::isInSection(const Point& p) const noexcept{
+        for(wint_t i = 0; i < 3; i++){
+            double max = std::max(get(0).get(i), get(1).get(i));
+            double min = std::min(get(0).get(i), get(1).get(i));
+            if(p.get(i) < min || p.get(i) > max) return false;
+        }
+        return true;
     }
 
 }

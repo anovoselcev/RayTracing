@@ -1,7 +1,6 @@
 #include "geo/line.hpp"
 #include <cmath>
 #include <algorithm>
-#include <unordered_set>
 
 namespace rytg{
 
@@ -45,18 +44,16 @@ namespace rytg{
     }
 
     std::vector<double> Line::intersection(const Triangle& t, const Plane& p) const noexcept{
-        Section s1(t.getPoint(0), t.getPoint(1));
-        Section s2(t.getPoint(1), t.getPoint(2));
-        Section s3(t.getPoint(2), t.getPoint(0));
+        Section s[3] = {Section(t.getPoint(0), t.getPoint(1)),
+                        Section(t.getPoint(1), t.getPoint(2)),
+                        Section(t.getPoint(2), t.getPoint(0))};
         std::vector<double> res;
-        double inter[3] = {intersection(s1, s1.intersection(p)),
-                           intersection(s2, s2.intersection(p)),
-                           intersection(s3, s3.intersection(p))};
-        for(wint_t i = 0; i < 3; ++i)
-            if(inter[i] == inter[i]){
-                res.push_back(inter[i]);
+        for(wint_t i = 0; i < 3; ++i){
+            double param = intersection(s[i], s[i].intersection(p));
+            if(!std::isnan(param))
+                res.push_back(param);
         }
-        if(res.size() >= 2){
+        if(res.size() == 2){
             std::sort(res.begin(), res.end());
             auto it = std::unique(res.begin(), res.end());
             res.erase(it, res.end());
@@ -65,19 +62,23 @@ namespace rytg{
     }
 
     double Line::intersection(const Section& sec, double s) const noexcept{
-        std::unordered_set<double> checker;
+        std::vector<double> checker;
         for(wint_t j = 0; j < 3; ++j){
             double tmp = NAN;
             double numer = sec.get(0).get(j) + s * (sec.get(1).get(j) - sec.get(0).get(j)) - P0_.get(j);
             if(std::fabs(L_.get(j)) > deps){
                 tmp = numer / L_.get(j);
-                checker.insert(tmp);
+                checker.push_back(tmp);
             }
             else if(std::fabs(numer) > deps){
                 return NAN;
             }
         }
-        if(checker.size() == 1)
+        auto it = std::unique(checker.begin(), checker.end(), [](auto lhs, auto rhs){
+            return std::fabs(lhs - rhs) <= deps;
+        });
+        checker.erase(it, checker.end());
+        if(checker.size() == 1 && sec.isInSection(getValue(checker[0])))
             return *checker.begin();
         return NAN;
     }

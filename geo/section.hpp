@@ -20,6 +20,8 @@ namespace rytg{
                                  const std::vector<double>& t2);
 
       Point get(std::size_t idx) const noexcept;
+
+      bool isInSection(const Point& p) const noexcept;
         
     };
 }
