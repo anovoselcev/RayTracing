@@ -53,33 +53,34 @@ namespace rytg{
             if(!std::isnan(param))
                 res.push_back(param);
         }
-        if(res.size() == 2){
-            std::sort(res.begin(), res.end());
-            auto it = std::unique(res.begin(), res.end());
-            res.erase(it, res.end());
+        if(res.size() == 2 && res[0] > res[1]){
+            std::swap(res[0], res[1]);
         }
         return res; 
     }
 
     double Line::intersection(const Section& sec, double s) const noexcept{
-        std::vector<double> checker;
+        double check = NAN;
         for(wint_t j = 0; j < 3; ++j){
             double tmp = NAN;
             double numer = sec.get(0).get(j) + s * (sec.get(1).get(j) - sec.get(0).get(j)) - P0_.get(j);
             if(std::fabs(L_.get(j)) > deps){
                 tmp = numer / L_.get(j);
-                checker.push_back(tmp);
+                if(!std::isnan(check) && std::fabs(tmp - check) > deps) return NAN;
+                check = tmp;
             }
             else if(std::fabs(numer) > deps){
                 return NAN;
             }
         }
-        auto it = std::unique(checker.begin(), checker.end(), [](auto lhs, auto rhs){
+        /*auto it = std::unique(checker.begin(), checker.end(), [](auto lhs, auto rhs){
             return std::fabs(lhs - rhs) <= deps;
         });
         checker.erase(it, checker.end());
         if(checker.size() == 1 && sec.isInSection(getValue(checker[0])))
-            return *checker.begin();
+            return *checker.begin();*/
+        if(!std::isnan(check) && sec.isInSection(getValue(check)))
+            return check;
         return NAN;
     }
  
