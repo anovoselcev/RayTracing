@@ -3,6 +3,7 @@
 #include "tests/test_interception.hpp"
 #include "tests/test_vector.hpp"
 #include "tests/test_bsp.hpp"
+#include "tests/test_e2e.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -60,9 +61,9 @@ std::string make_path(const char* path){
 }
 
 int main(int argc, char* argv[]){
-    test_rytg::test_bsp();
+    //test_rytg::test_bsp();
     //parseTriangles(std::cin);
-    /*
+    
     if(argc > 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
         std::cout << "Wrong arguments\n";
@@ -78,12 +79,21 @@ int main(int argc, char* argv[]){
     }
     else if(argc == 2){
         std::ifstream f(make_path(argv[1]));
-        if(f.good())
+        std::vector<rytg::Triangle> trigArray;
+        std::fstream randf("G:\\MIPT\\input_rand.in");
+        std::fstream os("G:\\MIPT\\result.out");
+
+        if(f.good()){
+            //test_rytg::generate_input_file(randf);
+            trigArray = test_rytg::parse_input_file(randf);
+            test_rytg::generate_output_file(os, f, trigArray);
+            f.seekg(0);
             parseTriangles(f);
+        }
         else{
             std::cerr << "can't open file\n";
             return -1;
         }
-    }*/
+    }
     return 0;
 }
