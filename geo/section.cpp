@@ -45,8 +45,8 @@ namespace rytg{
 
     bool Section::isInSection(const Point& p) const noexcept{
         for(wint_t i = 0; i < 3; i++){
-            double max = std::max(get(0).get(i), get(1).get(i));
-            double min = std::min(get(0).get(i), get(1).get(i));
+            double max = std::max(p_[0].get(i), p_[1].get(i));
+            double min = std::min(p_[0].get(i), p_[1].get(i));
             if(p.get(i) < min || p.get(i) > max) return false;
         }
         return true;
