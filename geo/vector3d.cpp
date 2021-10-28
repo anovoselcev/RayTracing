@@ -27,9 +27,9 @@ namespace rytg{
         }
 
         double Vector3D::module() const noexcept{
-            double x2 = std::pow(direction_.x, 2);
-            double y2 = std::pow(direction_.y, 2);
-            double z2 = std::pow(direction_.z, 2);
+            double x2 = direction_.x * direction_.x;
+            double y2 = direction_.y * direction_.y;
+            double z2 = direction_.z * direction_.z;
             return std::sqrt(x2 + y2 + z2);
         }
 
