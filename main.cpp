@@ -3,6 +3,7 @@
 #include "tests/test_interception.hpp"
 #include "tests/test_vector.hpp"
 #include "tests/test_bsp.hpp"
+#include "tests/test_e2e.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
