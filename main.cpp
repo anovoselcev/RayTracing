@@ -11,8 +11,8 @@
 #include <cstring>
 
 //std::fstream progfos("G:\\MIPT\\program_result.out");
-std::fstream progfos("G:\\MIPT\\1 sem\\Generic_Programming\\Graphic_Course_Project\\GCP_Level_1\\gcp_level_1\\tests\\validation\\program_result.out");
-rytg::BSPtree bsp(progfos);
+//std::fstream progfos("G:\\MIPT\\1 sem\\Generic_Programming\\Graphic_Course_Project\\GCP_Level_1\\gcp_level_1\\tests\\validation\\program_result.out");
+rytg::BSPtree bsp;
 
 void parseTriangles(std::istream& is){
     size_t N = 0;
@@ -65,7 +65,8 @@ std::string make_path(const char* path){
 int main(int argc, char* argv[]){
     //test_rytg::test_bsp();
     //parseTriangles(std::cin);
-    
+    test_rytg::test_e2e();
+/*    
     if(argc > 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
         std::cout << "Wrong arguments\n";
@@ -81,17 +82,15 @@ int main(int argc, char* argv[]){
     }
     else if(argc == 2){
         std::ifstream f(make_path(argv[1]));
-        std::vector<rytg::Triangle> trigArray;
-        std::fstream randf9("G:\\validation\\input_rand9.in");
-        
-        std::fstream os("G:\\MIPT\\test_result.out");
+        //std::vector<rytg::Triangle> trigArray;
+        //std::fstream randf9("G:\\validation\\input_rand9.in");
+        //std::fstream os("G:\\MIPT\\test_result.out");
 
         if(f.good()){
             //test_rytg::generate_input_file(randf9);
-            trigArray = test_rytg::parse_input_file(f);
-            test_rytg::generate_output_file(os, f, trigArray);
-
-            f.seekg(0);
+            //trigArray = test_rytg::parse_input_file(f);
+            //test_rytg::generate_output_file(os, f, trigArray);
+            //f.seekg(0);
             parseTriangles(f);
         }
         else{
@@ -99,5 +98,6 @@ int main(int argc, char* argv[]){
             return -1;
         }
     }
+    */
     return 0;
 }
