@@ -44,8 +44,9 @@ namespace rytg{
 
     // https://blackpawn.com/texts/pointinpoly/
     bool Triangle::isPointInTriangle(const Point& p) const noexcept{
-        const Vector3D a1 = Vector3D( getPoint(0) ) - Vector3D( getPoint(2) );
-        const Vector3D b1 = Vector3D( getPoint(1) ) - Vector3D( getPoint(2) );
+
+        const Vector3D a1 = Vector3D(getPoint(0), getPoint(2), false);
+        const Vector3D b1 = Vector3D(getPoint(1), getPoint(2), false);
         const double    aa = a1.dot(a1);
         const double	ab = a1.dot(b1);
         const double    bb = b1.dot(b1);
@@ -54,20 +55,21 @@ namespace rytg{
         if ( std::fabs ( d ) < deps )
             return false;
 
-        const Vector3D  p1 = Vector3D(p) - Vector3D(getPoint(2) );
+        const Vector3D  p1 = Vector3D(p, getPoint(2), false);
         const double    pa = p1.dot(a1);
         const double    pb = p1.dot(b1);
         const double    u  = (pa*bb - pb*ab) / d;
 
-        if ( u < 0 || u > 1 )
+        if ( u < 0 )
             return false;
 
         const double v = (pb*aa - pa*ab) / d;
 
-        if ( v < 0 || v > 1 )
+        if ( v < 0 )
             return false;
 
-        return u + v <= 1;
+        return u + v < 1;
+
     }
 
     bool Triangle::isPlaneIntersection(const Triangle* t) const noexcept{
