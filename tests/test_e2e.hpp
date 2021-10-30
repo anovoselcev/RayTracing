@@ -29,11 +29,11 @@ namespace test_rytg{
     }
 
     double rand_double(void){
-        return ((double)rand()/(double)RAND_MAX)*1000;
+        return ((double)rand()/(double)RAND_MAX)*10000;
     }
 
     void generate_input_file(std::ostream& os){
-        uint32_t N = 100;
+        uint32_t N = 10;
         os << N << '\n' << std::endl;
         for (uint32_t i = 0; i < N; ++i){
             os << rand_double() << ' ' << rand_double() << ' ' << rand_double() << std::endl;    //p1
@@ -57,6 +57,8 @@ namespace test_rytg{
                 }
             }
         }
+
+        os << '\n' << std::endl;
 
         for ( uint32_t i = 0; i < N; ++i ){
             if ( intersectArray[i] )
