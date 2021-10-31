@@ -28,6 +28,10 @@ namespace rytg{
 
         BSPtree(const std::vector<Triangle>& c);
 
+        BSPtree(const BSPtree&) = delete;
+
+        BSPtree& operator=(const BSPtree&) = delete;
+
         ~BSPtree();
 
         void add(Polygon* t);
