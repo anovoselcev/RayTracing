@@ -1,9 +1,6 @@
 
 #include "scene/bsp_tree.hpp"
-#include "tests/test_interception.hpp"
-#include "tests/test_vector.hpp"
-#include "tests/test_bsp.hpp"
-#include "tests/test_e2e.hpp"
+#include "tests/tests.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -13,10 +10,10 @@
 rytg::BSPtree bsp;
 
 void parseTriangles(std::istream& is){
+    test_rytg::tests();
     size_t N = 0;
     is >> N;
     double x, y, z;
-    std::vector<rytg::Triangle*> triangles(N);
     for(size_t i = 0; i < N; ++i){
         rytg::Point p1, p2, p3;
         is >> x >> y >> z;
@@ -25,11 +22,8 @@ void parseTriangles(std::istream& is){
         p2 = {x, y, z};
         is >> x >> y >> z;
         p3 = {x, y, z};
-        triangles[i] = new rytg::Triangle(p1, p2, p3);
-        //bsp.add(T);
+        bsp.add(new rytg::Triangle(p1, p2, p3));
     }
-    for(size_t i = 0; i < N; i++)
-        bsp.add(triangles[i]);
 }
 
 void print_help(){
@@ -63,50 +57,9 @@ std::string make_path(const char* path){
 
 }
 
-std::vector<rytg::Triangle> parse_input_file(std::istream& is){
-    size_t N = 0;
-    is >> N;
-    std::vector<rytg::Triangle> trigArray(N);
-    double x, y, z;
-    for(size_t i = 0; i < N; ++i){
-        rytg::Point p1, p2, p3;
-        is >> x >> y >> z;
-        p1 = {x, y, z};
-        is >> x >> y >> z;
-        p2 = {x, y, z};
-        is >> x >> y >> z;
-        p3 = {x, y, z};
-        trigArray[i] = rytg::Triangle(p1, p2, p3);
-    }
-    return trigArray;
-}
 
-
-void generate_output_file(std::vector<rytg::Triangle> trigArray){
-    size_t N = trigArray.size();
-    std::vector<bool> intersectArray(N, false);
-    std::ofstream res("result.txt");
-    for ( uint32_t i = 0; i < N-1; i++ ){
-        for ( uint32_t j = i + 1; j < N; j++ ){
-            //std::cout << "Try : " << i << " - " << j << std::endl;
-            if ( trigArray[i].isIntersection(&(trigArray[j])) ){
-                    intersectArray[i] = true;
-                    intersectArray[j] = true;
-                     res << i << " - " << j << std::endl;
-            }
-        }
-    }
-
-    for ( uint32_t i = 0; i < N; ++i ){
-        if ( intersectArray[i] )
-            res << i << std::endl;
-    }
-    std::cout << "-----------------------------" << std::endl;
-}
 
 int main(int argc, char* argv[]){
-    //test_rytg::test_bsp();
-    //parseTriangles(std::cin);
 
     if(argc > 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
@@ -124,15 +77,7 @@ int main(int argc, char* argv[]){
     else if(argc == 2){
         std::ifstream f(make_path(argv[1]));
         if(f.good()){
-            //parseTriangles(f);
-            //std::ofstream os("result1.out");
-            //auto trigArray = parse_input_file(f);
-            //std::cout << trigArray.size() << std::endl;
-            //generate_output_file(trigArray);
-            //generate_input_file(os);
-           // f.close();
-            std::ifstream ff(make_path(argv[1]));
-            parseTriangles(ff);
+            parseTriangles(f);
         }
         else{
             std::cerr << "can't open file\n";
