@@ -16,7 +16,7 @@ namespace rytg{
     bool Point::operator==(const Point& p) const noexcept{
         return std::fabs(x - p.x) <= deps &&
                std::fabs(y - p.y) <= deps &&
-               std::fabs(z - p.z);
+               std::fabs(z - p.z) <= deps;
     }
 
 }
