@@ -48,15 +48,25 @@ namespace rytg{
                         Section(t.getPoint(1), t.getPoint(2)),
                         Section(t.getPoint(2), t.getPoint(0))};
         std::vector<double> res;
+        res.reserve(3);
         for(wint_t i = 0; i < 3; ++i){
             double param = intersection(s[i], s[i].intersection(p));
             if(!std::isnan(param))
                 res.push_back(param);
         }
+
+        if(res.size() == 3){
+            auto it = std::unique(res.begin(), res.end(),
+            [](auto lhs, auto rhs){
+                return std::fabs(lhs - rhs) < deps;
+            });
+            res.erase(it, res.end());
+        }
+
         if(res.size() == 2 && res[0] > res[1]){
             std::swap(res[0], res[1]);
         }
-        return res; 
+        return res;
     }
 
     double Line::intersection(const Section& sec, double s) const noexcept{
@@ -73,12 +83,7 @@ namespace rytg{
                 return NAN;
             }
         }
-        /*auto it = std::unique(checker.begin(), checker.end(), [](auto lhs, auto rhs){
-            return std::fabs(lhs - rhs) <= deps;
-        });
-        checker.erase(it, checker.end());
-        if(checker.size() == 1 && sec.isInSection(getValue(checker[0])))
-            return *checker.begin();*/
+
         if(!std::isnan(check) && sec.isInSection(getValue(check)))
             return check;
         return NAN;
