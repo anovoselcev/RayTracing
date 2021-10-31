@@ -65,6 +65,8 @@ namespace rytg{
         void delNode(Node* n);
 
         void printIntersection(size_t id);
+
+        std::array<Polygon*, 2> split(Polygon* p, const Plane& pl);
   
     };
 }
