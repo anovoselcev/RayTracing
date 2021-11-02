@@ -1,9 +1,6 @@
 
 #include "scene/bsp_tree.hpp"
-#include "tests/test_interception.hpp"
-#include "tests/test_vector.hpp"
-#include "tests/test_bsp.hpp"
-#include "tests/test_e2e.hpp"
+#include "tests/tests.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -15,6 +12,7 @@
 rytg::BSPtree bsp;
 
 void parseTriangles(std::istream& is){
+    test_rytg::tests();
     size_t N = 0;
     is >> N;
     double x, y, z;
@@ -26,8 +24,7 @@ void parseTriangles(std::istream& is){
         p2 = {x, y, z};
         is >> x >> y >> z;
         p3 = {x, y, z};
-        rytg::Triangle* T = new rytg::Triangle(p1, p2, p3);
-        bsp.add(T);
+        bsp.add(new rytg::Triangle(p1, p2, p3));
     }
 }
 
@@ -62,11 +59,9 @@ std::string make_path(const char* path){
 
 }
 
+
+
 int main(int argc, char* argv[]){
-    //test_rytg::test_bsp();
-    //parseTriangles(std::cin);
-    test_rytg::test_e2e();
-/*    
     if(argc > 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
         std::cout << "Wrong arguments\n";
@@ -82,15 +77,7 @@ int main(int argc, char* argv[]){
     }
     else if(argc == 2){
         std::ifstream f(make_path(argv[1]));
-        //std::vector<rytg::Triangle> trigArray;
-        //std::fstream randf9("G:\\validation\\input_rand9.in");
-        //std::fstream os("G:\\MIPT\\test_result.out");
-
         if(f.good()){
-            //test_rytg::generate_input_file(randf9);
-            //trigArray = test_rytg::parse_input_file(f);
-            //test_rytg::generate_output_file(os, f, trigArray);
-            //f.seekg(0);
             parseTriangles(f);
         }
         else{
@@ -98,6 +85,5 @@ int main(int argc, char* argv[]){
             return -1;
         }
     }
-    */
     return 0;
 }
