@@ -11,6 +11,7 @@ void tests(){
     test_vector();
     test_interception();
     test_bsp();
+    test_e2e();
 }
 }
 

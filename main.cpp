@@ -7,8 +7,6 @@
 #include <algorithm>
 #include <cstring>
 
-//std::fstream progfos("G:\\MIPT\\program_result.out");
-//std::fstream progfos("G:\\MIPT\\1 sem\\Generic_Programming\\Graphic_Course_Project\\GCP_Level_1\\gcp_level_1\\tests\\validation\\program_result.out");
 rytg::BSPtree bsp;
 
 void parseTriangles(std::istream& is){

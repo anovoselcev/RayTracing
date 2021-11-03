@@ -8,7 +8,9 @@ namespace test_rytg{
         rytg::Vector3D v1(1, 0, 0);
         rytg::Vector3D v2(0, 1, 0);
         assert(std::fabs(v1.dot(v2)) < rytg::deps);
-        rytg::Vector3D v3(1, 1, 1);
+        rytg::Vector3D v3(1, 1, 1, false);
+        std::cout << (std::fabs(v1.dot(v3))) << std::endl;
+        std::cout << (std::fabs(v2.dot(v3))) << std::endl;
         assert(std::fabs(v1.dot(v3) - 1) < rytg::deps);
         assert(std::fabs(v2.dot(v3) - 1) < rytg::deps);
     }
