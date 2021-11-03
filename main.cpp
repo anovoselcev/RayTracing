@@ -60,7 +60,6 @@ std::string make_path(const char* path){
 
 
 int main(int argc, char* argv[]){
-
     if(argc > 2){
         std::cout << "!!!!!!!!!!!!!!!!\n";
         std::cout << "Wrong arguments\n";
