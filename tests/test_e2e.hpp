@@ -76,11 +76,8 @@ bool compare_files(std::ifstream& manualCheck, std::ifstream& progRes){
     while(!((eof1 = manualCheck.eof()) || (eof2 =progRes.eof()))){
         manualCheck >> mcVal;
         progRes >> prVal;
-        //std::cout << mcVal << ' ' << prVal << std::endl;
         if ( mcVal != prVal )
             return false;
-        eof1 = manualCheck.eof();
-        eof2 = progRes.eof();
     }
 
     if (eof1 && eof2)
