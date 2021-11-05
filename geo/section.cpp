@@ -47,7 +47,9 @@ namespace rytg{
         for(wint_t i = 0; i < 3; i++){
             double max = std::max(p_[0].get(i), p_[1].get(i));
             double min = std::min(p_[0].get(i), p_[1].get(i));
-            if(p.get(i) < min || p.get(i) > max) return false;
+            if(Double::eq(max, min) && !Double::eq(min, p.get(i))) return false;
+            if(!Double::eq(max, min) && (p.get(i) < min || p.get(i) > max)) return false;
+
         }
         return true;
     }
