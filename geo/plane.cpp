@@ -19,7 +19,7 @@ namespace rytg{
     }
 
     bool Plane::operator==(const Plane& p) const noexcept{
-        return N_.cross(p.N_).isNull() && std::fabs(d_ - p.d_) <= deps;
+        return N_.cross(p.N_).isNull() && Double::eq(d_, p.d_);
     }
 
     bool Plane::isAbove(const Vector3D& v) const noexcept{
@@ -29,11 +29,11 @@ namespace rytg{
     }
 
     bool Plane::isOnPlane(const Vector3D& v) const noexcept{
-        return std::fabs(distance(v)) <= deps;
+        return Double::isNull(distance(v));
     }
 
     bool Plane::isOnPlane(const Point& p) const noexcept{
-        return std::fabs(distance(p)) <= deps;
+        return Double::isNull(distance(p));
     }
 
     bool Plane::isOnPlane(const Triangle& t) const noexcept{
