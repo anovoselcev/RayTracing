@@ -23,7 +23,7 @@ def test(prog, t_path):
         input  = os.path.join(t_path, "input_rand" + str(i) + ".in")
         output = os.path.join(t_path, "program_result"+ str(i) + ".out")
         stdout = str()
-        subprocess.run([prog, input, output], stdout=subprocess.PIPE)
+        subprocess.run([prog, input, output], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output_ver = os.path.join(t_path, "manual_check"+ str(i) + ".txt")
         compare(output, output_ver, i)
     print("\n")
