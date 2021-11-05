@@ -9,7 +9,7 @@ namespace rytg{
     double Section::intersection(const Plane& p) const noexcept {
         double d_u0 = p.getValue(p_[0]);
         double d_u1 = p.getValue(p_[1]);
-        if(std::fabs(d_u1 - d_u0) < deps) return NAN;
+        if(Double::eq(d_u1, d_u0)) return NAN;
         double s = - d_u0 / (d_u1 - d_u0);
         return s;
     }
