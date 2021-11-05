@@ -34,13 +34,23 @@ void test_one_point(){
 }
 
 void test_edge(){
-
+    std::ostringstream oss;
+    rytg::BSPtree bsp(oss);
+    rytg::Triangle* t1 = new rytg::Triangle({0, 0 ,0}, {1, 0, 0}, {1, 0, 1});
+    rytg::Triangle* t2 = new rytg::Triangle({0, 0, 0}, {1, 0, 0}, {1, 1, 0});
+    rytg::Triangle* t3 = new rytg::Triangle({1, 0, 0}, {1, 0, 1}, {2, 0, 0});
+    bsp.add(t1);
+    bsp.add(t2);
+    bsp.add(t3);
+    assert(oss.str() == "0\n1\n2\n");
+    std::cout << "BSP - edge done\n";
 }
 
 
 void test_bsp(){
     test_no_intersection();
     test_one_point();
+    test_edge();
 }
 }
 
