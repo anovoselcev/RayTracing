@@ -35,7 +35,7 @@ namespace rytg{
 
         void Vector3D::normalize(){
             double m = module();
-            if(std::fabs(m) >= deps){
+            if(!Double::isNull(m)){
                 direction_.x /= m;
                 direction_.y /= m;
                 direction_.z /= m;
@@ -43,9 +43,9 @@ namespace rytg{
         }
 
         bool Vector3D::isNull() const noexcept{
-            return std::fabs(direction_.x) <= deps &&
-                   std::fabs(direction_.y) <= deps &&
-                   std::fabs(direction_.z) <= deps;
+            return Double::isNull(direction_.x) &&
+                   Double::isNull(direction_.y) &&
+                   Double::isNull(direction_.z);
         }
 
         double Vector3D::get(std::size_t index) const{
