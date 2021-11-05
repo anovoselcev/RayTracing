@@ -52,7 +52,7 @@ namespace rytg{
         const double    bb = b1.dot(b1);
         const double	d  = aa*bb - ab*ab;
 
-        if ( std::fabs ( d ) < deps )
+        if (Double::isNull(d))
             return false;
 
         const Vector3D  p1 = Vector3D(p, getPoint(2), false);
@@ -124,17 +124,6 @@ namespace rytg{
         Polygon* above_chunk = new ChunkTriangle(trig_shared, above);
         Polygon* below_chunk = new ChunkTriangle(trig_shared, below);
         return {below_chunk, above_chunk};
-    }
-
-    Triangle* Triangle::mergeChunks(const Polygon* lhs, const Polygon* rhs){
-        if(ChunkTriangle::isChunks(lhs, rhs)){
-
-            Triangle* par = new Triangle(*dynamic_cast<const ChunkTriangle*>(lhs)->getParent());
-            delete lhs;
-            delete rhs;
-            return par;
-        }
-        return nullptr;
     }
 
     bool Triangle::isTriangle(const Polygon* p){
