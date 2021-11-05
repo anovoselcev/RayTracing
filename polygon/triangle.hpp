@@ -43,8 +43,6 @@ namespace rytg{
 
         static std::array<Polygon*, 2> splitToChunks(Triangle* t, const Plane& p);
 
-        static Triangle* mergeChunks(const Polygon* lhs, const Polygon* rhs);
-
         static bool isTriangle(const Polygon* p);
 
     };
