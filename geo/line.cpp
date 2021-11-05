@@ -40,7 +40,7 @@ namespace rytg{
     }
 
     Point Line::getValue(double t) const noexcept{
-        return {P0_.x + L_.get(0) * t, P0_.y + L_.get(1) * t, P0_.z + L_.get(2) * t};
+        return {L_.get(0) * t + P0_.x, L_.get(1) * t + P0_.y, L_.get(2) * t + P0_.z};
     }
 
     std::vector<double> Line::intersection(const Triangle& t, const Plane& p) const noexcept{
@@ -48,7 +48,7 @@ namespace rytg{
                         Section(t.getPoint(1), t.getPoint(2)),
                         Section(t.getPoint(2), t.getPoint(0))};
         std::vector<double> res;
-        res.reserve(3);
+        res.reserve(2);
         for(wint_t i = 0; i < 3; ++i){
             double param = intersection(s[i], s[i].intersection(p));
             if(!std::isnan(param))
@@ -56,11 +56,11 @@ namespace rytg{
         }
 
         if(res.size() == 3){
+            std::sort(res.begin(), res.end());
             auto it = std::unique(res.begin(), res.end(), Double::eq);
             res.erase(it, res.end());
         }
-
-        if(res.size() == 2 && res[0] > res[1]){
+        else if(res.size() == 2 && res[0] > res[1]){
             std::swap(res[0], res[1]);
         }
         return res;
