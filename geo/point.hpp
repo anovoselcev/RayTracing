@@ -16,6 +16,13 @@ namespace rytg{
         double get(std::size_t idx) const noexcept;
 
     };
+
+    namespace Double {
+
+         bool eq(double lhs, double rhs);
+
+         bool isNull(double lhs);
+    }
 }
 
 #endif

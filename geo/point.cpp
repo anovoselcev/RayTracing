@@ -4,6 +4,17 @@
 
 namespace rytg{
 
+namespace Double {
+
+    bool eq(double lhs, double rhs){
+        return std::fabs(lhs - rhs) < deps;
+    }
+
+    bool isNull(double lhs){
+        return std::fabs(lhs) < deps;
+    }
+}
+
     double Point::get(std::size_t idx) const noexcept{
         switch(idx){
             case 0: return x;
@@ -14,9 +25,9 @@ namespace rytg{
     }
 
     bool Point::operator==(const Point& p) const noexcept{
-        return std::fabs(x - p.x) <= deps &&
-               std::fabs(y - p.y) <= deps &&
-               std::fabs(z - p.z) <= deps;
+        return Double::eq(x, p.x) &&
+               Double::eq(y, p.y) &&
+               Double::eq(z, p.z);
     }
 
 }
