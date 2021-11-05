@@ -5,7 +5,6 @@
 #include "geo/point.hpp"
 #include "polygon/triangle.hpp"
 #include <vector>
-#include <ios>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -89,14 +88,14 @@ bool compare_files(std::ifstream& manualCheck, std::ifstream& progRes){
 void test_e2e(){
 
     for(size_t i = 1; i < 10; i++){
-        std::ifstream randfis (make_path("../../tests/validation/input_rand" + std::to_string(i) + ".in"));
-        std::ofstream progfos (make_path("../../tests/validation/program_result" + std::to_string(i) + ".out"));
+        std::ifstream randfis (make_path("validation/input_rand" + std::to_string(i) + ".in"));
+        std::ofstream progfos (make_path("tests/validation/program_result" + std::to_string(i) + ".out"));
         test_file_e2e(randfis, progfos);
     }
 
     for(size_t i = 1; i < 10; i++){
-        std::ifstream mancheck(make_path("../../tests/validation/manual_check" + std::to_string(i) + ".txt"));
-        std::ifstream progf   (make_path("../../tests/validation/program_result" + std::to_string(i) + ".out"));
+        std::ifstream mancheck(make_path("validation/manual_check" + std::to_string(i) + ".txt"));
+        std::ifstream progf   (make_path("validation/program_result" + std::to_string(i) + ".out"));
         assert(compare_files(mancheck, progf));
         std::cout << "E2E_" + std::to_string(i) + " -  done\n";
     }
