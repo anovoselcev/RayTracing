@@ -12,7 +12,7 @@ void tests_unite(){
     test_vector();
     test_interception();
     test_bsp();
-    std::cerr << "Unit tests done\n";
+    //std::cerr << "Unit tests done\n";
 }
 #ifdef E2ETEST
 #include "tests/test_e2e.hpp"
