@@ -3,7 +3,6 @@
 
 #include "scene/bsp_tree.hpp"
 #include "polygon/triangle.hpp"
-#include <iostream>
 #include <sstream>
 #include <cassert>
 
@@ -17,7 +16,7 @@ void test_no_intersection(){
     bsp.add(t1);
     bsp.add(t2);
     assert(oss.str().empty());
-    std::cout << "BSP - no intersection done\n";
+    //std::cout << "BSP - no intersection done\n";
 }
 
 void test_one_point(){
@@ -30,7 +29,7 @@ void test_one_point(){
     bsp.add(t2);
     bsp.add(t3);
     assert(oss.str() == "0\n1\n2\n");
-    std::cout << "BSP - one point done\n";
+    //std::cout << "BSP - one point done\n";
 }
 
 void test_edge(){
@@ -43,7 +42,7 @@ void test_edge(){
     bsp.add(t2);
     bsp.add(t3);
     assert(oss.str() == "0\n1\n2\n");
-    std::cout << "BSP - edge done\n";
+    //std::cout << "BSP - edge done\n";
 }
 
 
