@@ -10,13 +10,13 @@ namespace rytg{
         double x, y, z;
         Vector3D lhs_N = lhs.getNormal();
         Vector3D rhs_N = rhs.getNormal();
-        if (std::fabs(L_.get(0)) > deps){
+        if (!Double::isNull(L_.get(0))){
             x = 0;
             double det = lhs_N.get(1) * rhs_N.get(2) - lhs_N.get(2) * rhs_N.get(1);
             y = (rhs.getConstant() * lhs_N.get(2) - rhs_N.get(2) * lhs.getConstant()) / det;
             z = (lhs.getConstant() * rhs_N.get(1) - lhs_N.get(1) * rhs.getConstant()) / det;
         }
-        else if(std::fabs(L_.get(1)) > deps){
+        else if(!Double::isNull(L_.get(1))){
             y = 0;
             double det = lhs_N.get(0) * rhs_N.get(2) - lhs_N.get(2) * rhs_N.get(0);
             x = (rhs.getConstant() * lhs_N.get(2) - rhs_N.get(2) * lhs.getConstant()) / det;
@@ -56,10 +56,7 @@ namespace rytg{
         }
 
         if(res.size() == 3){
-            auto it = std::unique(res.begin(), res.end(),
-            [](auto lhs, auto rhs){
-                return std::fabs(lhs - rhs) < deps;
-            });
+            auto it = std::unique(res.begin(), res.end(), Double::eq);
             res.erase(it, res.end());
         }
 
@@ -72,14 +69,13 @@ namespace rytg{
     double Line::intersection(const Section& sec, double s) const noexcept{
         double check = NAN;
         for(wint_t j = 0; j < 3; ++j){
-            double tmp = NAN;
             double numer = sec.get(0).get(j) + s * (sec.get(1).get(j) - sec.get(0).get(j)) - P0_.get(j);
-            if(std::fabs(L_.get(j)) > deps){
-                tmp = numer / L_.get(j);
-                if(!std::isnan(check) && std::fabs(tmp - check) > deps) return NAN;
+            if(!Double::isNull(L_.get(j))){
+                double tmp = numer / L_.get(j);
+                if(!std::isnan(check) && !Double::eq(tmp, check)) return NAN;
                 check = tmp;
             }
-            else if(std::fabs(numer) > deps){
+            else if(!Double::isNull(numer)){
                 return NAN;
             }
         }
