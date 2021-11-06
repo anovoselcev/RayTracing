@@ -14,6 +14,8 @@ namespace rytg{
         Point P0_;
         Vector3D L_;
 
+        double getParam(const Point& p) const noexcept;
+
         public:
 
         Line(const Plane& lhs, const Plane& rhs) noexcept;
