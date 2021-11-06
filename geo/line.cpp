@@ -78,7 +78,7 @@ std::vector<double> Line::intersection(const Triangle& t, const Plane& p) const 
         }
     }
 
-    if(res.size() == 3){
+    if(res.size() >= 3){
         std::sort(res.begin(), res.end());
         auto it = std::unique(res.begin(), res.end(), Double::eq);
         res.erase(it, res.end());
