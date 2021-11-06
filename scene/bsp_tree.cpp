@@ -18,6 +18,8 @@ BSPtree::BSPtree(const std::vector<Triangle>& c){
 }
 
 BSPtree::~BSPtree(){
+    for(const auto& el : ids_)
+        os_ << el << "\n";
     delNode(root_);
 }
 
@@ -145,9 +147,6 @@ std::array<Polygon*, 2> BSPtree::split(Polygon* p, const Plane& pl){
 }
 
 void BSPtree::printIntersection(size_t id){
-    if(ids_.find(id) == ids_.end()){
-        ids_.insert(id);
-        os_ << id << '\n';
-    }
+    ids_.insert(id);
 }
 }
