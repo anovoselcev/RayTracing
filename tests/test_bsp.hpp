@@ -11,16 +11,19 @@ namespace test_rytg {
 void test_no_intersection(){
     std::ostringstream oss;
     rytg::BSPtree bsp(oss);
+    {
     rytg::Triangle* t1 = new rytg::Triangle({0, 0 ,0}, {1, 1, 1}, {1, 0, 0});
     rytg::Triangle* t2 = new rytg::Triangle({10, 10, 10}, {20, 20, 20}, {30, 30, 30});
     bsp.add(t1);
     bsp.add(t2);
+    }
     assert(oss.str().empty());
     //std::cout << "BSP - no intersection done\n";
 }
 
 void test_one_point(){
     std::ostringstream oss;
+    {
     rytg::BSPtree bsp(oss);
     rytg::Triangle* t1 = new rytg::Triangle({0, 0 ,0}, {1, 1, 1}, {1, 0, 0});
     rytg::Triangle* t2 = new rytg::Triangle({0, 0, 0}, {0, 1, 0}, {0, 1, -1});
@@ -28,12 +31,14 @@ void test_one_point(){
     bsp.add(t1);
     bsp.add(t2);
     bsp.add(t3);
+    }
     assert(oss.str() == "0\n1\n2\n");
     //std::cout << "BSP - one point done\n";
 }
 
 void test_edge(){
     std::ostringstream oss;
+    {
     rytg::BSPtree bsp(oss);
     rytg::Triangle* t1 = new rytg::Triangle({0, 0 ,0}, {1, 0, 0}, {1, 0, 1});
     rytg::Triangle* t2 = new rytg::Triangle({0, 0, 0}, {1, 0, 0}, {1, 1, 0});
@@ -41,6 +46,7 @@ void test_edge(){
     bsp.add(t1);
     bsp.add(t2);
     bsp.add(t3);
+    }
     assert(oss.str() == "0\n1\n2\n");
     //std::cout << "BSP - edge done\n";
 }
