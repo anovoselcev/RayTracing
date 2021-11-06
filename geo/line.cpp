@@ -90,21 +90,14 @@ std::vector<double> Line::intersection(const Triangle& t, const Plane& p) const 
 }
 
 double Line::intersection(const Section& sec, double s) const noexcept{
-    double check = NAN;
-    for(wint_t j = 0; j < 3; ++j){
-        double numer = sec.get(0).get(j) + s * (sec.get(1).get(j) - sec.get(0).get(j)) - P0_.get(j);
-        if(!Double::isNull(L_.get(j))){
-            double tmp = numer / L_.get(j);
-            if(!std::isnan(check) && !Double::eq(tmp, check)) return NAN;
-            check = tmp;
-        }
-        else if(!Double::isNull(numer)){
-            return NAN;
-        }
-    }
 
-    if(!std::isnan(check) && sec.isInSection(getValue(check)))
-        return check;
+    Point pr = {sec.get(0).get(0) + s * (sec.get(1).get(0) - sec.get(0).get(0)),
+                sec.get(0).get(1) + s * (sec.get(1).get(1) - sec.get(0).get(1)),
+                sec.get(0).get(2) + s * (sec.get(1).get(2) - sec.get(0).get(2))};
+    double param = getParam(pr);
+
+    if(!std::isnan(param) && sec.isInSection(getValue(param)))
+        return param;
     return NAN;
 }
 
