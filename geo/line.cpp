@@ -72,10 +72,6 @@ std::vector<double> Line::intersection(const Triangle& t, const Plane& p) const 
             if(!std::isnan(param))
                 res.push_back(param);
         }
-        else if(p.isOnPlane(s[i].get(0)) && p.isOnPlane(s[i].get(1))){
-            res.push_back(getParam(s[i].get(0)));
-            res.push_back(getParam(s[i].get(1)));
-        }
     }
 
     if(res.size() >= 3){
