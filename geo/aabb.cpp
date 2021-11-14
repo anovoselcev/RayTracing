@@ -1,6 +1,4 @@
 #include "geo/aabb.hpp"
-
-#include <cmath>
 #include <iostream>
 
 
