@@ -1,6 +1,4 @@
 #include "geo/aabb.hpp"
-#include <iostream>
-
 
 namespace rytg{
 
