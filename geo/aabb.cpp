@@ -1,5 +1,6 @@
 #include "geo/aabb.hpp"
 
+#include <cmath>
 #include <iostream>
 
 
@@ -25,7 +26,7 @@ Aabb::Aabb(const Triangle& t) noexcept{
 
 }
 
-double Aabb::getMinCoordinate(const double x1, const double x2, const double x3) noexcept{
+double Aabb::getMinCoordinate(const double x1, const double x2, const double x3) const noexcept{
     if ( x1 < x2 && x2 < x3 ){
         return x1;
     } else if ( x2 < x3 ){
@@ -35,7 +36,7 @@ double Aabb::getMinCoordinate(const double x1, const double x2, const double x3)
     }
 }
 
-double Aabb::getMaxCoordinate(const double x1, const double x2, const double x3) noexcept{
+double Aabb::getMaxCoordinate(const double x1, const double x2, const double x3) const noexcept{
     if ( x1 > x2 && x2 > x3 ){
         return x1;
     } else if ( x2 > x3 ){
@@ -45,18 +46,21 @@ double Aabb::getMaxCoordinate(const double x1, const double x2, const double x3)
     }
 }
 
-bool Aabb::isIntersection(const Aabb& other) noexcept{
+bool Aabb::isInBox(const Point& p) const noexcept{
 
-    if (this->max_.get(0) < other.min_.get(0) || this->min_.get(0) > other.max_.get(0)) return false;
-    if (this->max_.get(1) < other.min_.get(1) || this->min_.get(1) > other.max_.get(1)) return false;
-    if (this->max_.get(2) < other.min_.get(2) || this->min_.get(2) > other.max_.get(2)) return false;
+    for (uint8_t i = 0; i < 3; i++){
+      if ( Double::eq(min_.get(i), p.get(i)) || Double::eq(max_.get(i), p.get(i)) ) continue; 
+      if ( (min_.get(i) > p.get(i)) || (max_.get(i) < p.get(i)) ) return false; 
+    }
     return true;
 }
 
-bool Aabb::isInBox(const Point& p) noexcept{
-    if (this->min_.get(0) > p.get(0) || this->max_.get(0) < p.get(0)) return false;
-    if (this->min_.get(1) > p.get(1) || this->max_.get(1) < p.get(1)) return false;
-    if (this->min_.get(2) > p.get(2) || this->max_.get(2) < p.get(2)) return false;
+bool Aabb::isIntersection(const Aabb& other) const noexcept{
+
+    for (uint8_t i = 0; i < 3; i++){
+      if ( Double::eq(max_.get(i), other.min_.get(i)) || Double::eq(min_.get(i), other.max_.get(i)) ) continue; 
+      if ( (max_.get(i) < other.min_.get(i) || min_.get(i) > other.max_.get(i)) ) return false; 
+    }
     return true;
 }
 

@@ -18,18 +18,18 @@ namespace rytg{
         Point min_;
         Point max_;
 
-        double getMinCoordinate(const double x1, const double x2, const double x3) noexcept;
+        double getMinCoordinate(const double x1, const double x2, const double x3) const noexcept;
 
-        double getMaxCoordinate(const double x1, const double x2, const double x3) noexcept;
+        double getMaxCoordinate(const double x1, const double x2, const double x3) const noexcept;
 
         public:
 
         Aabb(const Triangle& t) noexcept;
 
-        bool isIntersection(const Aabb& other) noexcept;
+        bool Aabb::isInBox(const Point& p) const noexcept;
 
-        bool Aabb::isInBox(const Point& p) noexcept;
-
+        bool isIntersection(const Aabb& other) const noexcept;
+        
     };
 
 }
