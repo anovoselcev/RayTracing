@@ -16,15 +16,15 @@ void test_aabb(){
     rytg::Point p2 = {7, 7, 7};
     rytg::Point p3 = {8, 8, 7.0000001};
     rytg::Point p4 = {9, 9, 7.00001};
-    rytg::Aabb aabb1 = rytg::Aabb(t1);
+    rytg::Aabb aabb1 = rytg::Aabb(t1, 2);
     rytg::Aabb aabb2 = rytg::Aabb(t2);
-    rytg::Aabb aabb3 = rytg::Aabb(t3);
+    rytg::Aabb aabb3 = rytg::Aabb(t3, 0);
 
     assert(aabb1.isIntersection(aabb2));
     assert(!aabb1.isIntersection(aabb3));
     assert(!aabb2.isIntersection(aabb3));
 
-    assert(!aabb1.isInBox(p1));
+    assert(aabb1.isInBox(p1));
     assert(aabb2.isInBox(p1));
     assert(aabb2.isInBox(p2));
     assert(aabb2.isInBox(p3));

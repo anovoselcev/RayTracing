@@ -1,8 +1,10 @@
 #include "geo/aabb.hpp"
+#include "geo/vector3d.hpp"
+//#include <iostream>
 
 namespace rytg{
 
-Aabb::Aabb(const Triangle& t) noexcept{
+Aabb::Aabb(const Triangle& t, uint8_t scale) noexcept{
     double x_min, y_min, z_min;
     double x_max, y_max, z_max;
 
@@ -14,12 +16,20 @@ Aabb::Aabb(const Triangle& t) noexcept{
     y_max = getMaxCoordinate(t.getPoint(0).get(1), t.getPoint(1).get(1), t.getPoint(2).get(1));
     z_max = getMaxCoordinate(t.getPoint(0).get(2), t.getPoint(1).get(2), t.getPoint(2).get(2));
 
-    min_ = {x_min, y_min, z_min};
-    max_ = {x_max, y_max, z_max};
+    if ( scale > 1 ){
+        rytg::Vector3D diagonal( {x_max, y_max, z_max}, {x_min, y_min, z_min}, false);
+        x_min = ( x_min > scale*diagonal.get(0) ) ? x_min - scale*diagonal.get(0) : 0;
+        y_min = ( y_min > scale*diagonal.get(1) ) ? y_min - scale*diagonal.get(1) : 0;
+        z_min = ( z_min > scale*diagonal.get(2) ) ? z_min - scale*diagonal.get(2) : 0;
+        min_ = { x_min, y_min, z_min };
+        max_ = { x_max+scale*diagonal.get(0), y_max+scale*diagonal.get(1), z_max+scale*diagonal.get(2) };
+    } else {
+        min_ = {x_min, y_min, z_min};
+        max_ = {x_max, y_max, z_max};
+    }
 
     //std::cout << "min_:" << min_.get(0) << ' ' <<  min_.get(1) << ' '  <<  min_.get(2) <<'\n';
     //std::cout << "max_:" << max_.get(0) << ' ' << max_.get(1) << ' '  << max_.get(2) <<'\n';
-
 }
 
 double Aabb::getMinCoordinate(const double x1, const double x2, const double x3) const noexcept{
