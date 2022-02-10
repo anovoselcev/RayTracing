@@ -24,7 +24,7 @@ namespace rytg{
 
         public:
 
-        Aabb(const Triangle& t) noexcept;
+        Aabb(const Triangle& t, uint8_t scale = 1) noexcept;
 
         bool Aabb::isInBox(const Point& p) const noexcept;
 
