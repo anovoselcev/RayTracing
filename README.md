@@ -1,2 +1,1 @@
 # RayTracing
-## Course project
